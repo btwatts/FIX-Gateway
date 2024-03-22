@@ -33,7 +33,7 @@ class MainThread(threading.Thread):
            This gives the thread all the plugin goodies that the
            parent has."""
         super(MainThread, self).__init__()
-        print("running btw plugin")
+        print("running ulp plugin")
         self.getout = False   # indicator for when to stop
         self.parent = parent  # parent plugin object
         self.log = parent.log  # simplifies logging
