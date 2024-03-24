@@ -191,8 +191,8 @@ class BERRYIMU(object):
 
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz}
 
-    def readCalibrated(self):
-        imuDict = readIMU()
+    def readCalibrated(self, LP):
+        imuDict = BERRYIMU.readIMU(self)
         ACCx = imuDict['ACCx']
         ACCy = imuDict['ACCy']
         ACCz = imuDict['ACCz']
@@ -355,7 +355,13 @@ if __name__ == '__main__':
 
 while True:
 
-    imuValues = berryIMU.readCalibrated()
+    ##Calculate loop Period(LP). How long between Gyro Reads
+    b  = datetime.datetime.now() - a
+    a  = datetime.datetime.now()
+    LP = b.microseconds/(1000000*1.0)
+    outputString = "Loop Time %5.2f " % ( LP )
+
+    imuValues = berryIMU.readCalibrated(LP)
 
     MAGx       = imuValues['MAGx']
     MAGy       = imuValues['MAGy']
@@ -372,14 +378,6 @@ while True:
     heading    = imuValues['heading']
     kalmanX    = imuValues['kalmanX']
     kalmanY    = imuValues['kalmanY']
-
-    ##Calculate loop Period(LP). How long between Gyro Reads
-    b = datetime.datetime.now() - a
-    a = datetime.datetime.now()
-    LP = b.microseconds/(1000000*1.0)
-    outputString = "Loop Time %5.2f " % ( LP )
-
-
 
     #Calculate the new tilt compensated values
     #The compass and accelerometer are orientated differently on the the BerryIMUv1, v2 and v3.
