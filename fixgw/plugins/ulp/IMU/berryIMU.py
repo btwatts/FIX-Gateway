@@ -35,37 +35,38 @@ MAG_MEDIANTABLESIZE = 9         # Median filter table size for magnetometer. Hig
 
 class BERRYIMU(object):
 
+    def __init__(self):
 ################# Compass Calibration values ############
 # Use calibrateBerryIMU.py to get calibration values
 # Calibrating the compass isnt mandatory, however a calibrated
 # compass will result in a more accurate heading value.
 
-    self.magXmin =  -562
-    self.magYmin =  -1002
-    self.magZmin =  1811
-    self.magXmax =  3096
-    self.magYmax =  3261
-    self.magZmax =  6458
+        self.magXmin =  -562
+        self.magYmin =  -1002
+        self.magZmin =  1811
+        self.magXmax =  3096
+        self.magYmax =  3261
+        self.magZmax =  6458
 
 ############### END Calibration offsets #################
 
 
     #Kalman filter variables
-    self.Q_angle = 0.02
-    self.Q_gyro = 0.0015
-    self.R_angle = 0.005
-    self.y_bias = 0.0
-    self.x_bias = 0.0
-    self.XP_00 = 0.0
-    self.XP_01 = 0.0
-    self.XP_10 = 0.0
-    self.XP_11 = 0.0
-    self.YP_00 = 0.0
-    self.YP_01 = 0.0
-    self.YP_10 = 0.0
-    self.YP_11 = 0.0
-    self.KFangleX = 0.0
-    self.KFangleY = 0.0
+        self.Q_angle = 0.02
+        self.Q_gyro = 0.0015
+        self.R_angle = 0.005
+        self.y_bias = 0.0
+        self.x_bias = 0.0
+        self.XP_00 = 0.0
+        self.XP_01 = 0.0
+        self.XP_10 = 0.0
+        self.XP_11 = 0.0
+        self.YP_00 = 0.0
+        self.YP_01 = 0.0
+        self.YP_10 = 0.0
+        self.YP_11 = 0.0
+        self.KFangleX = 0.0
+        self.KFangleY = 0.0
 
 
 
