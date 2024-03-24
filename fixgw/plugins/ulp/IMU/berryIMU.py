@@ -99,7 +99,7 @@ class BERRYIMU(object):
         self.mag_medianTable2Z = [1] * MAG_MEDIANTABLESIZE
 
 
-    def kalmanFilterY ( accAngle, gyroRate, DT):
+    def kalmanFilterY (self, accAngle, gyroRate, DT):
         self.y=0.0
         self.S=0.0
         """
@@ -134,7 +134,7 @@ class BERRYIMU(object):
     
         return self.KFangleY
     
-    def kalmanFilterX ( accAngle, gyroRate, DT):
+    def kalmanFilterX (self, accAngle, gyroRate, DT):
         self.x=0.0
         self.S=0.0
         """
