@@ -112,7 +112,7 @@ class BERRYIMU(object):
         global YP_10
         global YP_11
         """
-        self.KFangleY = self.KFangleY + self.DT * (gyroRate - self.y_bias)
+        self.KFangleY = self.KFangleY + DT * (gyroRate - self.y_bias)
     
         self.YP_00 = self.YP_00 + ( - DT * (self.YP_10 + self.YP_01) + self.Q_angle * DT )
         self.YP_01 = self.YP_01 + ( - DT * self.YP_11 )
