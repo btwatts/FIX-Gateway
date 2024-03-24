@@ -330,7 +330,7 @@ if __name__ == '__main__':
 
   import time
   from datetime import datetime
-  a = datetime.datetime.now()
+  a = datetime.now()
   print("berryIMU Test Program ...\n")
 
   berryIMU = BERRYIMU()
@@ -339,8 +339,8 @@ if __name__ == '__main__':
 while True:
 
     ##Calculate loop Period(LP). How long between Gyro Reads
-    b  = datetime.datetime.now() - a
-    a  = datetime.datetime.now()
+    b  = datetime.now() - a
+    a  = datetime.now()
     LP = b.microseconds/(1000000*1.0)
     outputString = "Loop Time %5.2f " % ( LP )
 

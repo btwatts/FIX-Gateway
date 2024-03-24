@@ -62,7 +62,7 @@ class MainThread(threading.Thread):
         self.bmp388.initialize()
         self.imu.initialize()
 
-        a = datetime.datetime.now()
+        a = datetime.now()
         print("ulp plugin Test ...\n")
 
         while not self.getout:
@@ -73,8 +73,8 @@ class MainThread(threading.Thread):
             print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
 
             ##Calculate loop Period(LP). How long between Gyro Reads
-            b  = datetime.datetime.now() - a
-            a  = datetime.datetime.now()
+            b  = datetime.now() - a
+            a  = datetime.now()
             LP = b.microseconds/(1000000*1.0)
             outputString = "Loop Time %5.2f " % ( LP )
         
