@@ -329,7 +329,7 @@ class BERRYIMU(object):
 if __name__ == '__main__':
 
   import time
-  from datetime import datetime
+  from datetime import datetime as datetime
   a = datetime.now()
   print("berryIMU Test Program ...\n")
 
