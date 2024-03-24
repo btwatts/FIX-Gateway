@@ -98,6 +98,8 @@ class BERRYIMU(object):
         self.mag_medianTable2Y = [1] * MAG_MEDIANTABLESIZE
         self.mag_medianTable2Z = [1] * MAG_MEDIANTABLESIZE
 
+    def BerryIMUversion(self):
+        return IMU.BerryIMUversion
 
     def kalmanFilterY (self, accAngle, gyroRate, DT):
         self.y=0.0

@@ -23,7 +23,9 @@
 #  when the plugin's run() function is called.
 
 import threading
+import math
 import time
+import datetime # debug only maybe
 from collections import OrderedDict
 import fixgw.plugin as plugin
 
@@ -51,12 +53,90 @@ class MainThread(threading.Thread):
         self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
       # self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
 
+        """Test initialization of multiple sensor packs."""
+        self.bmp388 = BMP388()
+        self.imu = BERRYIMU()
+
     def run(self):
+
+        self.bmp388.initialize()
+        self.imu.initialize()
+
+        a = datetime.datetime.now()
+        print("ulp plugin Test ...\n")
 
         while not self.getout:
             time.sleep(self.sleep_time)
             self.count += 1
-            self.log.debug("Yep")  # Do something more useful here
+            #self.log.debug("Yep")  # Do something more useful here
+            temperature,pressure,altitude = self.bmp388.get_temperature_and_pressure_and_altitude()
+            print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+
+            ##Calculate loop Period(LP). How long between Gyro Reads
+            b  = datetime.datetime.now() - a
+            a  = datetime.datetime.now()
+            LP = b.microseconds/(1000000*1.0)
+            outputString = "Loop Time %5.2f " % ( LP )
+        
+            imuValues = self.berryIMU.readCalibrated(LP)
+        
+            MAGx       = imuValues['MAGx']
+            MAGy       = imuValues['MAGy']
+            MAGz       = imuValues['MAGz']
+            pitch      = imuValues['pitch']
+            roll       = imuValues['roll']
+            AccXangle  = imuValues['AccXangle']
+            AccYangle  = imuValues['AccYangle']
+            gyroXangle = imuValues['gyroXangle']
+            gyroYangle = imuValues['gyroYangle']
+            gyroZangle = imuValues['gyroZangle']
+            CFangleX   = imuValues['CFangleX']
+            CFangleY   = imuValues['CFangleY']
+            heading    = imuValues['heading']
+            kalmanX    = imuValues['kalmanX']
+            kalmanY    = imuValues['kalmanY']
+        
+            #Calculate the new tilt compensated values
+            #The compass and accelerometer are orientated differently on the the BerryIMUv1, v2 and v3.
+            #This needs to be taken into consideration when performing the calculations
+        
+            #X compensation
+            if(self.imu.BerryIMUversion == 1 or self.imu.BerryIMUversion == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+                magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
+            else:                                                                #LSM9DS1
+                magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
+        
+            #Y compensation
+            if(self.imu.BerryIMUversion == 1 or self.imu.BerryIMUversion == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+                magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
+            else:                                                                #LSM9DS1
+                magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
+        
+            #Calculate tilt compensated heading
+            tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/M_PI
+        
+            if tiltCompensatedHeading < 0:
+                tiltCompensatedHeading += 360
+        
+            ##################### END Tilt Compensation ########################
+        
+            if 1:                       #Change to '0' to stop showing the angles from the accelerometer
+                outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
+        
+            if 1:                       #Change to '0' to stop  showing the angles from the gyro
+                outputString +="\t# GRYX Angle %5.2f  GYRY Angle %5.2f  GYRZ Angle %5.2f # " % (gyroXangle,gyroYangle,gyroZangle)
+        
+            if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
+                outputString +="\t#  CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX,CFangleY)
+        
+            if 1:                       #Change to '0' to stop  showing the heading
+                outputString +="\t# HEADING %5.2f  tiltCompensatedHeading %5.2f #" % (heading,tiltCompensatedHeading)
+        
+            if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
+                outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
+        
+            print(outputString)
+
         self.running = False
 
     def stop(self):
@@ -74,10 +154,6 @@ class Plugin(plugin.PluginBase):
         super(Plugin, self).__init__(name, config)
         self.thread = MainThread(self)
         self.status = OrderedDict()
-
-        """Test initialization of multiple sensor packs."""
-        self.bmp388 = BMP388()
-        self.imu = BERRYIMU()
 
     def run(self):
         """ The run method should return immediately.  The main routine will

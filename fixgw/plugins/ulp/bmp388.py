@@ -211,8 +211,7 @@ if __name__ == '__main__':
  bmp388 = BMP388()
  
  bmp388.initialize()
- print(' start ')
- 
+
  while True:
   time.sleep(0.5)
   temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
