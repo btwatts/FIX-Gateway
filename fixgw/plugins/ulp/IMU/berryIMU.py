@@ -170,14 +170,14 @@ class BERRYIMU(object):
     
         return self.KFangleX
 
-    def initialize():
+    def initialize(self):
         IMU.detectIMU()     #Detect if BerryIMU is connected.
         if(IMU.BerryIMUversion == 99):
             print(" No BerryIMU found... normally would be exiting here...")
             # sys.exit()
         IMU.initIMU()       #Initialise the accelerometer, gyroscope and compass
 
-    def readIMU():
+    def readIMU(self):
         #Read the accelerometer,gyroscope and magnetometer values
         ACCx = IMU.readACCx()
         ACCy = IMU.readACCy()
@@ -191,7 +191,7 @@ class BERRYIMU(object):
 
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz}
 
-    def readCalibrated():
+    def readCalibrated(self):
         imuDict = readIMU()
         ACCx = imuDict['ACCx']
         ACCy = imuDict['ACCy']
