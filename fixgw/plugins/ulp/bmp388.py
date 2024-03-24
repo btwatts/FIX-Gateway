@@ -70,6 +70,7 @@ class BMP388(object):
         self._address = address
         self._bus = smbus.SMBus(0x01)
 
+    def initialize(self):
         # Load calibration values.
 
         if self._read_byte(BMP388_REG_ADD_WIA) == BMP388_REG_VAL_WIA:
@@ -208,6 +209,9 @@ if __name__ == '__main__':
  print("BMP388 Test Program ...\n")
  
  bmp388 = BMP388()
+ 
+ bmp388.initialize()
+ print(' start ')
  
  while True:
   time.sleep(0.5)
