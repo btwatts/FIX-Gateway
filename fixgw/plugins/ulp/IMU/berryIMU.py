@@ -68,6 +68,38 @@ class BERRYIMU(object):
         self.KFangleX = 0.0
         self.KFangleY = 0.0
 
+    # Set default values for processing
+        self.gyroXangle = 0.0
+        self.gyroYangle = 0.0
+        self.gyroZangle = 0.0
+        self.CFangleX = 0.0
+        self.CFangleY = 0.0
+        self.CFangleXFiltered = 0.0
+        self.CFangleYFiltered = 0.0
+        self.kalmanX = 0.0
+        self.kalmanY = 0.0
+        self.oldXMagRawValue = 0
+        self.oldYMagRawValue = 0
+        self.oldZMagRawValue = 0
+        self.oldXAccRawValue = 0
+        self.oldYAccRawValue = 0
+        self.oldZAccRawValue = 0
+        
+        self.a = datetime.datetime.now()
+
+    #Setup the tables for the mdeian filter. Fill them all with '1' so we dont get devide by zero error
+        self.acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
+        self.acc_medianTable1Y = [1] * ACC_MEDIANTABLESIZE
+        self.acc_medianTable1Z = [1] * ACC_MEDIANTABLESIZE
+        self.acc_medianTable2X = [1] * ACC_MEDIANTABLESIZE
+        self.acc_medianTable2Y = [1] * ACC_MEDIANTABLESIZE
+        self.acc_medianTable2Z = [1] * ACC_MEDIANTABLESIZE
+        self.mag_medianTable1X = [1] * MAG_MEDIANTABLESIZE
+        self.mag_medianTable1Y = [1] * MAG_MEDIANTABLESIZE
+        self.mag_medianTable1Z = [1] * MAG_MEDIANTABLESIZE
+        self.mag_medianTable2X = [1] * MAG_MEDIANTABLESIZE
+        self.mag_medianTable2Y = [1] * MAG_MEDIANTABLESIZE
+        self.mag_medianTable2Z = [1] * MAG_MEDIANTABLESIZE
 
 
     def kalmanFilterY ( accAngle, gyroRate, DT):
@@ -140,41 +172,6 @@ class BERRYIMU(object):
         self.XP_11 = self.XP_11 - ( self.K_1 * self.XP_01 )
     
         return self.KFangleX
-    
-    
-    self.gyroXangle = 0.0
-    self.gyroYangle = 0.0
-    self.gyroZangle = 0.0
-    self.CFangleX = 0.0
-    self.CFangleY = 0.0
-    self.CFangleXFiltered = 0.0
-    self.CFangleYFiltered = 0.0
-    self.kalmanX = 0.0
-    self.kalmanY = 0.0
-    self.oldXMagRawValue = 0
-    self.oldYMagRawValue = 0
-    self.oldZMagRawValue = 0
-    self.oldXAccRawValue = 0
-    self.oldYAccRawValue = 0
-    self.oldZAccRawValue = 0
-    
-    self.a = datetime.datetime.now()
-    
-    
-    
-    #Setup the tables for the mdeian filter. Fill them all with '1' so we dont get devide by zero error
-    self.acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
-    self.acc_medianTable1Y = [1] * ACC_MEDIANTABLESIZE
-    self.acc_medianTable1Z = [1] * ACC_MEDIANTABLESIZE
-    self.acc_medianTable2X = [1] * ACC_MEDIANTABLESIZE
-    self.acc_medianTable2Y = [1] * ACC_MEDIANTABLESIZE
-    self.acc_medianTable2Z = [1] * ACC_MEDIANTABLESIZE
-    self.mag_medianTable1X = [1] * MAG_MEDIANTABLESIZE
-    self.mag_medianTable1Y = [1] * MAG_MEDIANTABLESIZE
-    self.mag_medianTable1Z = [1] * MAG_MEDIANTABLESIZE
-    self.mag_medianTable2X = [1] * MAG_MEDIANTABLESIZE
-    self.mag_medianTable2Y = [1] * MAG_MEDIANTABLESIZE
-    self.mag_medianTable2Z = [1] * MAG_MEDIANTABLESIZE
     
     IMU.detectIMU()     #Detect if BerryIMU is connected.
     if(IMU.BerryIMUversion == 99):
