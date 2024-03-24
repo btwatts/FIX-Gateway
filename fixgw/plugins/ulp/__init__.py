@@ -25,7 +25,7 @@
 import threading
 import math
 import time
-import datetime # debug only maybe
+from datetime import datetime
 from collections import OrderedDict
 import fixgw.plugin as plugin
 
