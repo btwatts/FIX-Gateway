@@ -102,16 +102,7 @@ class BERRYIMU(object):
     def kalmanFilterY (self, accAngle, gyroRate, DT):
         self.y=0.0
         self.S=0.0
-        """
-        global KFangleY
-        global Q_angle
-        global Q_gyro
-        global y_bias
-        global YP_00
-        global YP_01
-        global YP_10
-        global YP_11
-        """
+
         self.KFangleY = self.KFangleY + DT * (gyroRate - self.y_bias)
     
         self.YP_00 = self.YP_00 + ( - DT * (self.YP_10 + self.YP_01) + self.Q_angle * DT )
@@ -137,16 +128,6 @@ class BERRYIMU(object):
     def kalmanFilterX (self, accAngle, gyroRate, DT):
         self.x=0.0
         self.S=0.0
-        """
-        global KFangleX
-        global Q_angle
-        global Q_gyro
-        global x_bias
-        global XP_00
-        global XP_01
-        global XP_10
-        global XP_11
-        """
     
         self.KFangleX = self.KFangleX + DT * (gyroRate - self.x_bias)
     
@@ -395,19 +376,13 @@ while True:
     else:                                                                #LSM9DS1
         magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
 
-
-
-
-
     #Calculate tilt compensated heading
     tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/M_PI
 
     if tiltCompensatedHeading < 0:
         tiltCompensatedHeading += 360
 
-
     ##################### END Tilt Compensation ########################
-
 
     if 1:                       #Change to '0' to stop showing the angles from the accelerometer
         outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
