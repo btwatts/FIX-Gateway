@@ -339,7 +339,7 @@ if __name__ == '__main__':
 while True:
 
     ##Calculate loop Period(LP). How long between Gyro Reads
-    b  = datetime.now() - a
+    b  = datetime.datetime.now() - a
     a  = datetime.now()
     LP = b.microseconds/(1000000*1.0)
     outputString = "Loop Time %5.2f " % ( LP )
