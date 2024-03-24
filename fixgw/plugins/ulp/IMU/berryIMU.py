@@ -336,10 +336,10 @@ if __name__ == '__main__':
   berryIMU = BERRYIMU()
   berryIMU.initialize()
 
-while True:
+  while True:
 
     ##Calculate loop Period(LP). How long between Gyro Reads
-    b  = datetime.datetime.now() - a
+    b  = datetime.now() - a
     a  = datetime.now()
     LP = b.microseconds/(1000000*1.0)
     outputString = "Loop Time %5.2f " % ( LP )
