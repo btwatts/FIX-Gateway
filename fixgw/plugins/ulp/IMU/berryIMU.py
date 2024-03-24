@@ -351,7 +351,7 @@ if __name__ == '__main__':
   print("berryIMU Test Program ...\n")
 
   berryIMU = BERRYIMU()
-  berryIMU.initizlize()
+  berryIMU.initialize()
 
 while True:
 
