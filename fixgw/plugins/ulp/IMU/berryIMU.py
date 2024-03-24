@@ -307,8 +307,8 @@ class BERRYIMU(object):
             AccYangle += 90.0
 
     #Complementary filter used to combine the accelerometer and gyro values.
-        CFangleX=AA*(CFangleX+rate_gyr_x*LP) +(1 - AA) * AccXangle
-        CFangleY=AA*(CFangleY+rate_gyr_y*LP) +(1 - AA) * AccYangle
+        self.CFangleX=AA*(self.CFangleX+rate_gyr_x*LP) +(1 - AA) * AccXangle
+        self.CFangleY=AA*(self.CFangleY+rate_gyr_y*LP) +(1 - AA) * AccYangle
 
     #Kalman filter used to combine the accelerometer and gyro values.
         kalmanY = kalmanFilterY(AccYangle, rate_gyr_y,LP)
@@ -335,7 +335,7 @@ class BERRYIMU(object):
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz,
                 'rate_gyr_x':rate_gyr_x, 'rate_gyr_y':rate_gyr_y, 'rate_gyr_z':rate_gyr_z,
                 'gyroXangle':self.gyroXangle, 'gyroYangle':self.gyroYangle, 'gyroZangle':self.gyroZangle,
-                'AccXangle':AccXangle, 'AccYangle':AccYangle, 'CFangleX':CFangleX, 'CFangleY':CFangleY,
+                'AccXangle':AccXangle, 'AccYangle':AccYangle, 'CFangleX':self.CFangleX, 'CFangleY':self.CFangleY,
                 'kalmanX':kalmanX, 'kalmanY':kalmanY,
                 'heading':heading,
                 'accXnorm':accXnorm, 'accYnorm':accYnorm,
