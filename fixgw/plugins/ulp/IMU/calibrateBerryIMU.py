@@ -20,8 +20,7 @@
 import sys,signal,os
 import time
 import math
-
-from fixgw.plugins.ulp.IMU import IMU
+from fixgw.plugins.ulp.IMU.IMU import IMU
 import datetime
 
 

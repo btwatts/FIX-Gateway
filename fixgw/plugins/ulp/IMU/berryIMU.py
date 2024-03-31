@@ -19,7 +19,7 @@
 
 import sys
 import math
-from fixgw.plugins.ulp.IMU import IMU
+from fixgw.plugins.ulp.IMU.IMU import IMU
 import os
 
 
