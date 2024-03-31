@@ -39,6 +39,7 @@ def handle_ctrl_c(signal, frame):
     print(" Control-C ")
     print(" ulp plugin detected Control-C and is attempting to exit ")
     print(" ")
+    time.sleep(2)
     sys.exit(130) # 130 is standard exit code for ctrl-c
 
 class MainThread(threading.Thread):
