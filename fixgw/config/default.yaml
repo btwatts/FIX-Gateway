@@ -235,6 +235,11 @@ connections:
 
       - key: OAT
 
+  # Ultra Lite Avionics Plugin One
+  ulp:
+    load: yes
+    module: fixgw.plugins.ulp
+    delay: 1.0
 
   test1:
     load: no
