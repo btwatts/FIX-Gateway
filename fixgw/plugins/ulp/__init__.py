@@ -126,7 +126,7 @@ class MainThread(threading.Thread):
 
             print("\n")
             if 1:                       #Change to '0' to stop showing loop counter
-                outputString += "  # " + self.count
+                outputString += "  # " + str( self.count )
 
             print(outputString)  # this should print the loop time header whether or not the counter is included
 
