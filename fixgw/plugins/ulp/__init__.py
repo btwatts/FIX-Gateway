@@ -29,8 +29,8 @@ from datetime import datetime
 from collections import OrderedDict
 import fixgw.plugin as plugin
 
-from bmp388 import BMP388 as BMP388
-from IMU.berryIMU import BERRYIMU
+from fixgw.plugins.ulp.bmp388 import BMP388
+from fixgw.plugins.ulp.IMU.berryIMU import BERRYIMU
 
 def handle_ctrl_c(signal, frame):
     print(" ")
