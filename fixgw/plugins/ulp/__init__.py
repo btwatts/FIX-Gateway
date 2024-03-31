@@ -125,16 +125,19 @@ class MainThread(threading.Thread):
             ##################### END Tilt Compensation ########################
 
             print("\n")
-            print(outputString)
+            if 1:                       #Change to '0' to stop showing loop counter
+                outputString += "  # " + self.count
+
+            print(outputString)  # this should print the loop time header whether or not the counter is included
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
                 outputString = "\n\t"
-                outputString +=  '#  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0)
+                outputString +=  '# Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0)
                 print(outputString)
 
             if 1:                       #Change to '0' to stop showing the angles from the accelerometer
                 outputString = "\n\t"
-                outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
+                outputString += "# ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the gyro
@@ -144,7 +147,7 @@ class MainThread(threading.Thread):
         
             if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
                 outputString = "\n"
-                outputString +="\t#  CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX,CFangleY)
+                outputString +="\t# CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX,CFangleY)
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the heading
