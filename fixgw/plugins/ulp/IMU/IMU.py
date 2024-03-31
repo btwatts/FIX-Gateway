@@ -1,9 +1,9 @@
 import smbus
 bus = smbus.SMBus(1)
-from LSM9DS0 import *
-from LSM9DS1 import *
-from LSM6DSL import *
-from LIS3MDL import *
+from fixgw.plugins.ulp.IMU.LSM9DS0 import *
+from fixgw.plugins.ulp.IMU.LSM9DS1 import *
+from fixgw.plugins.ulp.IMU.LSM6DSL import *
+from fixgw.plugins.ulp.IMU.LIS3MDL import *
 import time
 
 
