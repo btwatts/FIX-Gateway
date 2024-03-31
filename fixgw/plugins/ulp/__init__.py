@@ -53,7 +53,8 @@ class MainThread(threading.Thread):
         self.parent = parent  # parent plugin object
         self.log = parent.log  # simplifies logging
         self.count = 0
-        self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
+        self.sleep_time = 3     # BUGBUG
+      # self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
       # self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
 
         """Test initialization of multiple sensor packs."""
