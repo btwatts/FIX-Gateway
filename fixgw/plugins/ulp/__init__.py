@@ -22,6 +22,7 @@
 #  plugin where the main Plugin class creates a thread and starts the thread
 #  when the plugin's run() function is called.
 
+import os
 import sys
 import threading
 import math
@@ -180,12 +181,12 @@ class Plugin(plugin.PluginBase):
         if (hasattr(super, "stop") and callable(super.stop)):
             print("calling super.stop()")
             super(Plugin, self).stop()
-        print("Caught stop signal....next we call sys.exit(130).")
+        #print("Caught stop signal....next we call sys.exit(130).")
         # time.sleep(2)
         # sys.exit(130) # 130 is standard exit code for ctrl-c
         # print("sys.exit(130) did not exit...next we call sys.exit().")
         # time.sleep(2)
-        self.thread.interrupt_main()
+        os._exit()
         print("Are we STILL HERE ???")
 
 
