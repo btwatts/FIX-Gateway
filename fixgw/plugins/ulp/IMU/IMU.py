@@ -219,6 +219,10 @@ class IMU(object):
         return mag_combined  if mag_combined < 32768 else mag_combined - 65536
 
 
+    def version(self):
+        return self.BerryIMUversion
+
+
     def initIMU(self):
 
         if(self.BerryIMUversion == 1):   #For BerryIMUv1
