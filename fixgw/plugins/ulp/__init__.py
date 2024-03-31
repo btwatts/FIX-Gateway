@@ -78,7 +78,7 @@ class MainThread(threading.Thread):
             LP = b.microseconds/(1000000*1.0)
             outputString = "Loop Time %5.2f " % ( LP )
         
-            imuValues = self.berryIMU.readCalibrated(LP)
+            imuValues = self.imu.readCalibrated(LP)
         
             MAGx       = imuValues['MAGx']
             MAGy       = imuValues['MAGy']
@@ -101,13 +101,13 @@ class MainThread(threading.Thread):
             #This needs to be taken into consideration when performing the calculations
         
             #X compensation
-            if(self.imu.BerryIMUversion == 1 or self.imu.BerryIMUversion == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+            if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
                 magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
             else:                                                                #LSM9DS1
                 magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
         
             #Y compensation
-            if(self.imu.BerryIMUversion == 1 or self.imu.BerryIMUversion == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+            if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
                 magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
             else:                                                                #LSM9DS1
                 magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
