@@ -227,44 +227,44 @@ class IMU(object):
 
         if(self.BerryIMUversion == 1):   #For BerryIMUv1
             #initialise the accelerometer
-            writeByte(LSM9DS0_ACC_ADDRESS,LSM9DS0_CTRL_REG1_XM, 0b01100111)  #z,y,x axis enabled, continuos update,  100Hz data rate
-            writeByte(LSM9DS0_ACC_ADDRESS,LSM9DS0_CTRL_REG2_XM, 0b00011000)  #+/- 8G full scale
+            self.writeByte(LSM9DS0_ACC_ADDRESS,LSM9DS0_CTRL_REG1_XM, 0b01100111)  #z,y,x axis enabled, continuos update,  100Hz data rate
+            self.writeByte(LSM9DS0_ACC_ADDRESS,LSM9DS0_CTRL_REG2_XM, 0b00011000)  #+/- 8G full scale
 
             #initialise the magnetometer
-            writeByte(LSM9DS0_MAG_ADDRESS,LSM9DS0_CTRL_REG5_XM, 0b11110000)  #Temp enable, M data rate = 50Hz
-            writeByte(LSM9DS0_MAG_ADDRESS,LSM9DS0_CTRL_REG6_XM, 0b01100000)  #+/- 12gauss
-            writeByte(LSM9DS0_MAG_ADDRESS,LSM9DS0_CTRL_REG7_XM, 0b00000000)  #Continuous-conversion mode
+            self.writeByte(LSM9DS0_MAG_ADDRESS,LSM9DS0_CTRL_REG5_XM, 0b11110000)  #Temp enable, M data rate = 50Hz
+            self.writeByte(LSM9DS0_MAG_ADDRESS,LSM9DS0_CTRL_REG6_XM, 0b01100000)  #+/- 12gauss
+            self.writeByte(LSM9DS0_MAG_ADDRESS,LSM9DS0_CTRL_REG7_XM, 0b00000000)  #Continuous-conversion mode
 
             #initialise the gyroscope
-            writeByte(LSM9DS0_GYR_ADDRESS,LSM9DS0_CTRL_REG1_G, 0b00001111)   #Normal power mode, all axes enabled
-            writeByte(LSM9DS0_GYR_ADDRESS,LSM9DS0_CTRL_REG4_G, 0b00110000)   #Continuos update, 2000 dps full scale
+            self.writeByte(LSM9DS0_GYR_ADDRESS,LSM9DS0_CTRL_REG1_G, 0b00001111)   #Normal power mode, all axes enabled
+            self.writeByte(LSM9DS0_GYR_ADDRESS,LSM9DS0_CTRL_REG4_G, 0b00110000)   #Continuos update, 2000 dps full scale
 
         elif(self.BerryIMUversion == 2):       #For BerryIMUv2
             #initialise the accelerometer
-            writeByte(LSM9DS1_ACC_ADDRESS,LSM9DS1_CTRL_REG5_XL,0b00111000)   #z, y, x axis enabled for accelerometer
-            writeByte(LSM9DS1_ACC_ADDRESS,LSM9DS1_CTRL_REG6_XL,0b00111000)   #+/- 8g
+            self.writeByte(LSM9DS1_ACC_ADDRESS,LSM9DS1_CTRL_REG5_XL,0b00111000)   #z, y, x axis enabled for accelerometer
+            self.writeByte(LSM9DS1_ACC_ADDRESS,LSM9DS1_CTRL_REG6_XL,0b00111000)   #+/- 8g
 
             #initialise the gyroscope
-            writeByte(LSM9DS1_GYR_ADDRESS,LSM9DS1_CTRL_REG4,0b00111000)      #z, y, x axis enabled for gyro
-            writeByte(LSM9DS1_GYR_ADDRESS,LSM9DS1_CTRL_REG1_G,0b10111000)    #Gyro ODR = 476Hz, 2000 dps
-            writeByte(LSM9DS1_GYR_ADDRESS,LSM9DS1_ORIENT_CFG_G,0b10111000)   #Swap orientation
+            self.writeByte(LSM9DS1_GYR_ADDRESS,LSM9DS1_CTRL_REG4,0b00111000)      #z, y, x axis enabled for gyro
+            self.writeByte(LSM9DS1_GYR_ADDRESS,LSM9DS1_CTRL_REG1_G,0b10111000)    #Gyro ODR = 476Hz, 2000 dps
+            self.writeByte(LSM9DS1_GYR_ADDRESS,LSM9DS1_ORIENT_CFG_G,0b10111000)   #Swap orientation
 
             #initialise the magnetometer
-            writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG1_M, 0b10011100)    #Temp compensation enabled,Low power mode mode,80Hz ODR
-            writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG2_M, 0b01000000)    #+/- 2gauss
-            writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG3_M, 0b00000000)    #continuos update
-            writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG4_M, 0b00000000)    #lower power mode for Z axis
+            self.writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG1_M, 0b10011100)    #Temp compensation enabled,Low power mode mode,80Hz ODR
+            self.writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG2_M, 0b01000000)    #+/- 2gauss
+            self.writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG3_M, 0b00000000)    #continuos update
+            self.writeByte(LSM9DS1_MAG_ADDRESS,LSM9DS1_CTRL_REG4_M, 0b00000000)    #lower power mode for Z axis
 
         elif(self.BerryIMUversion == 3):       #For BerryIMUv3
             #initialise the accelerometer
-            writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL1_XL,0b10011111)           #ODR 3.33 kHz, +/- 8g , BW = 400hz
-            writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL8_XL,0b11001000)           #Low pass filter enabled, BW9, composite filter
-            writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL3_C,0b01000100)            #Enable Block Data update, increment during multi byte read
+            self.writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL1_XL,0b10011111)           #ODR 3.33 kHz, +/- 8g , BW = 400hz
+            self.writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL8_XL,0b11001000)           #Low pass filter enabled, BW9, composite filter
+            self.writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL3_C,0b01000100)            #Enable Block Data update, increment during multi byte read
 
             #initialise the gyroscope
-            writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL2_G,0b10011100)            #ODR 3.3 kHz, 2000 dps
+            self.writeByte(LSM6DSL_ADDRESS,LSM6DSL_CTRL2_G,0b10011100)            #ODR 3.3 kHz, 2000 dps
 
             #initialise the magnetometer
-            writeByte(LIS3MDL_ADDRESS,LIS3MDL_CTRL_REG1, 0b11011100)         # Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.
-            writeByte(LIS3MDL_ADDRESS,LIS3MDL_CTRL_REG2, 0b00100000)         # +/- 8 gauss
-            writeByte(LIS3MDL_ADDRESS,LIS3MDL_CTRL_REG3, 0b00000000)         # Continuous-conversion mode
+            self.writeByte(LIS3MDL_ADDRESS,LIS3MDL_CTRL_REG1, 0b11011100)         # Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.
+            self.writeByte(LIS3MDL_ADDRESS,LIS3MDL_CTRL_REG2, 0b00100000)         # +/- 8 gauss
+            self.writeByte(LIS3MDL_ADDRESS,LIS3MDL_CTRL_REG3, 0b00000000)         # Continuous-conversion mode
