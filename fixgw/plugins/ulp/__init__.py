@@ -160,7 +160,10 @@ class Plugin(plugin.PluginBase):
             block when calling this function.  If the plugin is simply a collection
             of callback functions, those can be setup here and no thread will be
             necessary"""
-        super(Plugin, self).run()
+        if (hasattr(super, "run") and callable(super.run)):
+            print("calling super.run()")
+            super(Plugin, self).run()
+
         self.thread.start()
 
     def stop(self):
