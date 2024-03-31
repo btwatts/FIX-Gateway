@@ -186,7 +186,7 @@ class Plugin(plugin.PluginBase):
         # sys.exit(130) # 130 is standard exit code for ctrl-c
         # print("sys.exit(130) did not exit...next we call sys.exit().")
         # time.sleep(2)
-        os._exit()
+        os._exit(os.EX_OK)
         print("Are we STILL HERE ???")
 
 
