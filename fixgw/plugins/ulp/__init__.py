@@ -125,11 +125,10 @@ class MainThread(threading.Thread):
             ##################### END Tilt Compensation ########################
 
             print("\n")
-            print("\n")
             print(outputString)
 
             if 1:                       #Change to '0' to stop showing the angles from the accelerometer
-                outputString = "\n"
+                outputString = "\n\t"
                 outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
                 print(outputString)
         
@@ -149,7 +148,7 @@ class MainThread(threading.Thread):
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
-                outputString = "\n"
+                outputString = "\n\t"
                 outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
                 print(outputString)
 
