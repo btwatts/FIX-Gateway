@@ -72,9 +72,9 @@ class MainThread(threading.Thread):
         while not self.getout:
             time.sleep(self.sleep_time)
             self.count += 1
-            #self.log.debug("Yep")  # Do something more useful here
+
             temperature,pressure,altitude = self.bmp388.get_temperature_and_pressure_and_altitude()
-            print('  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+            ## print('  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
 
             ##Calculate loop Period(LP). How long between Gyro Reads
             b  = datetime.now() - a
@@ -127,6 +127,11 @@ class MainThread(threading.Thread):
             print("\n")
             print(outputString)
 
+            if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
+                outputString = "\n\t"
+                outputString +=  '#  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0)
+                print(outputString)
+
             if 1:                       #Change to '0' to stop showing the angles from the accelerometer
                 outputString = "\n\t"
                 outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
@@ -151,8 +156,6 @@ class MainThread(threading.Thread):
                 outputString = "\n\t"
                 outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
                 print(outputString)
-
-            time.sleep(3) # BUGBUG obviously this is test code...but then so are all the print statements
 
         self.running = False
 
