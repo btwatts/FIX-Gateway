@@ -103,17 +103,17 @@ class MainThread(threading.Thread):
             #X compensation
             if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
                 magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
-            else:                                                                #LSM9DS1
+            else:                                                              #LSM9DS1
                 magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
         
             #Y compensation
             if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
                 magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
-            else:                                                                #LSM9DS1
+            else:                                                              #LSM9DS1
                 magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
         
             #Calculate tilt compensated heading
-            tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/M_PI
+            tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/math.pi
         
             if tiltCompensatedHeading < 0:
                 tiltCompensatedHeading += 360
