@@ -175,7 +175,12 @@ class Plugin(plugin.PluginBase):
             self.thread.join(1.0)
         if self.thread.is_alive():
             raise plugin.PluginFail
-        super(Plugin, self).stop()
+
+        if (hasattr(super, "stop") and callable(super.stop)):
+            print("calling super.stop()")
+            super(Plugin, self).stop()
+        sys.exit(130) # 130 is standard exit code for ctrl-c
+
 
     def is_running(self):
         return self.thread.is_alive()
