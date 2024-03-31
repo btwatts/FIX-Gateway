@@ -10,10 +10,10 @@ import time
 
 class IMU(object):
 
-    # class variable
-    BerryIMUversion = 99
+    def __init__(self):
+        self.BerryIMUversion = 99
 
-    def detectIMU():
+    def detectIMU(self):
         #Detect which version of BerryIMU is connected using the 'who am i' register
         #BerryIMUv1 uses the LSM9DS0
         #BerryIMUv2 uses the LSM9DS1
@@ -66,7 +66,7 @@ class IMU(object):
         bus.write_byte_data(device_address, register, value)
 
 
-    def readACCx():
+    def readACCx(self):
         acc_l = 0
         acc_h = 0
         if(self.BerryIMUversion == 1):
@@ -83,7 +83,7 @@ class IMU(object):
         return acc_combined  if acc_combined < 32768 else acc_combined - 65536
 
 
-    def readACCy():
+    def readACCy(self):
         acc_l = 0
         acc_h = 0
         if(self.BerryIMUversion == 1):
@@ -100,7 +100,7 @@ class IMU(object):
         return acc_combined  if acc_combined < 32768 else acc_combined - 65536
 
 
-    def readACCz():
+    def readACCz(self):
         acc_l = 0
         acc_h = 0
         if(self.BerryIMUversion == 1):
@@ -117,7 +117,7 @@ class IMU(object):
         return acc_combined  if acc_combined < 32768 else acc_combined - 65536
 
 
-    def readGYRx():
+    def readGYRx(self):
         gyr_l = 0
         gyr_h = 0
         if(self.BerryIMUversion == 1):
@@ -134,7 +134,7 @@ class IMU(object):
         return gyr_combined  if gyr_combined < 32768 else gyr_combined - 65536
 
 
-    def readGYRy():
+    def readGYRy(self):
         gyr_l = 0
         gyr_h = 0
         if(self.BerryIMUversion == 1):
@@ -151,7 +151,7 @@ class IMU(object):
         return gyr_combined  if gyr_combined < 32768 else gyr_combined - 65536
 
 
-    def readGYRz():
+    def readGYRz(self):
         gyr_l = 0
         gyr_h = 0
         if(self.BerryIMUversion == 1):
@@ -168,7 +168,7 @@ class IMU(object):
         return gyr_combined  if gyr_combined < 32768 else gyr_combined - 65536
 
 
-    def readMAGx():
+    def readMAGx(self):
         mag_l = 0
         mag_h = 0
         if(self.BerryIMUversion == 1):
@@ -185,7 +185,7 @@ class IMU(object):
         return mag_combined  if mag_combined < 32768 else mag_combined - 65536
 
 
-    def readMAGy():
+    def readMAGy(self):
         mag_l = 0
         mag_h = 0
         if(self.BerryIMUversion == 1):
@@ -202,7 +202,7 @@ class IMU(object):
         return mag_combined  if mag_combined < 32768 else mag_combined - 65536
 
 
-    def readMAGz():
+    def readMAGz(self):
         mag_l = 0
         mag_h = 0
         if(self.BerryIMUversion == 1):
@@ -219,7 +219,7 @@ class IMU(object):
         return mag_combined  if mag_combined < 32768 else mag_combined - 65536
 
 
-    def initIMU():
+    def initIMU(self):
 
         if(self.BerryIMUversion == 1):   #For BerryIMUv1
             #initialise the accelerometer
