@@ -181,11 +181,11 @@ class Plugin(plugin.PluginBase):
             print("calling super.stop()")
             super(Plugin, self).stop()
         print("Caught stop signal....next we call sys.exit(130).")
-        time.sleep(2)
-        sys.exit(130) # 130 is standard exit code for ctrl-c
-        print("sys.exit(130) did not exit...next we call sys.exit().")
-        time.sleep(2)
-        sys.exit()
+        # time.sleep(2)
+        # sys.exit(130) # 130 is standard exit code for ctrl-c
+        # print("sys.exit(130) did not exit...next we call sys.exit().")
+        # time.sleep(2)
+        self.thread.interrupt_main()
         print("Are we STILL HERE ???")
 
 
