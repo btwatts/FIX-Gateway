@@ -179,6 +179,7 @@ class Plugin(plugin.PluginBase):
         if (hasattr(super, "stop") and callable(super.stop)):
             print("calling super.stop()")
             super(Plugin, self).stop()
+        import sys
         sys.exit(130) # 130 is standard exit code for ctrl-c
 
 
