@@ -142,7 +142,7 @@ class MainThread(threading.Thread):
         
             if 1:                       #Change to '0' to stop  showing the angles from the gyro
                 outputString = "\n"
-                outputString +="\t# GRYX Angle %5.2f  GYRY %5.2f  GYRZ %5.2f" % (gyroXangle,gyroYangle,gyroZangle)
+                outputString +="\t# GRYX %5.2f  GYRY %5.2f  GYRZ %5.2f" % (gyroXangle,gyroYangle,gyroZangle)
                 print (outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
