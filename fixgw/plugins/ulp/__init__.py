@@ -74,13 +74,13 @@ class MainThread(threading.Thread):
             self.count += 1
             #self.log.debug("Yep")  # Do something more useful here
             temperature,pressure,altitude = self.bmp388.get_temperature_and_pressure_and_altitude()
-            print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+            print('  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
 
             ##Calculate loop Period(LP). How long between Gyro Reads
             b  = datetime.now() - a
             a  = datetime.now()
             LP = b.microseconds/(1000000*1.0)
-            outputString = "Loop Time %5.2f " % ( LP )
+            outputString = "  Loop Time %5.2f " % ( LP )
         
             imuValues = self.imu.readCalibrated(LP)
         
@@ -123,23 +123,37 @@ class MainThread(threading.Thread):
                 tiltCompensatedHeading += 360
         
             ##################### END Tilt Compensation ########################
-        
+
+            print("\n")
+            print("\n")
+            print(outputString)
+
             if 1:                       #Change to '0' to stop showing the angles from the accelerometer
+                outputString = "\n"
                 outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
+                print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the gyro
+                outputString = "\n"
                 outputString +="\t# GRYX Angle %5.2f  GYRY Angle %5.2f  GYRZ Angle %5.2f # " % (gyroXangle,gyroYangle,gyroZangle)
+                print (outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
+                outputString = "\n"
                 outputString +="\t#  CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX,CFangleY)
+                print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the heading
+                outputString = "\n"
                 outputString +="\t# HEADING %5.2f  tiltCompensatedHeading %5.2f #" % (heading,tiltCompensatedHeading)
+                print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
+                outputString = "\n"
                 outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
-        
-            print(outputString)
+                print(outputString)
+
+            time.sleep(3) # BUGBUG obviously this is test code...but then so are all the print statements
 
         self.running = False
 
