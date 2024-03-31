@@ -181,15 +181,9 @@ class Plugin(plugin.PluginBase):
         if (hasattr(super, "stop") and callable(super.stop)):
             print("calling super.stop()")
             super(Plugin, self).stop()
-        #print("Caught stop signal....next we call sys.exit(130).")
-        # time.sleep(2)
-        # sys.exit(130) # 130 is standard exit code for ctrl-c
-        # print("sys.exit(130) did not exit...next we call sys.exit().")
-        # time.sleep(2)
+        print("Caught stop signal....next we exit.")
+        time.sleep(2)
         os._exit(os.EX_OK)
-        print("Are we STILL HERE ???")
-
-
 
     def is_running(self):
         return self.thread.is_alive()
