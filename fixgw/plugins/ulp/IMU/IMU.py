@@ -62,7 +62,7 @@ class IMU(object):
         time.sleep(1)
 
 
-    def writeByte(device_address,register,value):
+    def writeByte(self, device_address, register, value):
         bus.write_byte_data(device_address, register, value)
 
 
