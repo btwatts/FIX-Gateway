@@ -388,33 +388,32 @@ if __name__ == '__main__':
 
           ##################### END Tilt Compensation ########################
 
-          print("")
-          print("")
-          print("")
+          print("\n")
+          print("\n")
           print(outputString)
 
           if 1:                       #Change to '0' to stop showing the angles from the accelerometer
-              outputString = ""
+              outputString = "\n"
               outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
               print(outputString)
 
           if 1:                       #Change to '0' to stop  showing the angles from the gyro
-              outputString = ""
+              outputString = "\n"
               outputString +="\t# GRYX Angle %5.2f  GYRY Angle %5.2f  GYRZ Angle %5.2f # " % (gyroXangle,gyroYangle,gyroZangle)
               print(outpuString)
 
           if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
-              outputString = ""
+              outputString = "\n"
               outputString +="\t#  CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX,CFangleY)
               print(outputString)
 
           if 1:                       #Change to '0' to stop  showing the heading
-              outputString = ""
+              outputString = "\n"
               outputString +="\t# HEADING %5.2f  tiltCompensatedHeading %5.2f #" % (heading,tiltCompensatedHeading)
               print(outputString)
 
           if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
-              outputString = ""
+              outputString = "\n"
               outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
               print(outputString)
 
