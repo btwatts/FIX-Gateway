@@ -42,14 +42,6 @@ def handle_ctrl_c(signal, frame):
     time.sleep(2)
     sys.exit(130) # 130 is standard exit code for ctrl-c
 
-def convertTuple(tup):
-    str = ''
-    for item in tup:
-        if (str != ''):
-            str = str + ':'
-        str = str + tostring(item)
-    return str
-
 class MainThread(threading.Thread):
     def __init__(self, parent):
         """The calling object should pass itself as the parent.
@@ -145,12 +137,12 @@ class MainThread(threading.Thread):
             self.parent.db_write("HEAD", heading)
         #   self.parent.db_write("ALAT", ) # based on 'slipskid' which is unknown to me right now
             self.parent.db_write("AIRPRESS", pressure)
-            stdbaro = 29.92
             currentbaro = self.parent.db_read("BARO")
-            init_alt = round((float(altitude)*3.28083989502))
-            self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
-            myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
-            self.parent.db_write("ALT", myAltitude)
+            stdbaro = currentbaro[0]  # 29.92
+        #    init_alt = round((float(altitude)*3.28083989502))
+        #    self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
+        #    myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
+            self.parent.db_write("ALT", altitude) # myAltitude
 
         #   self.parent.db_write("BARO", pressure) # --- Altimiter setting ???
         #   self.parent.db_write("AOA", )  # AOA  - Angle of attack       ?
@@ -169,8 +161,7 @@ class MainThread(threading.Thread):
 
             if 1:    # debug
                 outputString  = "\n\t"
-                outputString += '# Current BARO = '
-                print(currentbaro)
+                outputString += '# Current BARO = %2.f'%(currentbaro[0])
                 print(outputString)
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
