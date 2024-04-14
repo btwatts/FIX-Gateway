@@ -47,7 +47,7 @@ def convertTuple(tup):
     for item in tup:
         if (str != ''):
             str = str + ':'
-        str = str + str(item)
+        str = str + tostring(item)
     return str
 
 class MainThread(threading.Thread):
@@ -169,7 +169,8 @@ class MainThread(threading.Thread):
 
             if 1:    # debug
                 outputString  = "\n\t"
-                outputString += '# Current BARO = ' + convertTuple(currentbaro)
+                outputString += '# Current BARO = '
+                print(currentbaro)
                 print(outputString)
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
