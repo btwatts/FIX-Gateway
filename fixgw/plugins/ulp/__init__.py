@@ -49,13 +49,14 @@ class MainThread(threading.Thread):
            parent has."""
         super(MainThread, self).__init__()
         print("running ulp plugin")
-        self.getout = False   # indicator for when to stop
-        self.parent = parent  # parent plugin object
-        self.log = parent.log  # simplifies logging
+        self.getout = False     # indicator for when to stop
+        self.parent = parent    # parent plugin object
+        self.log = parent.log   # simplifies logging
         self.count = 0
         self.sleep_time = 3     # BUGBUG
       # self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
       # self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
+        self.smooted = 0.8 # smooth altitude 0 to 1, 1 is very smooth.
 
         """Test initialization of multiple sensor packs."""
         self.bmp388 = BMP388()
@@ -103,7 +104,7 @@ class MainThread(threading.Thread):
             heading    = imuValues['heading']
             kalmanX    = imuValues['kalmanX']
             kalmanY    = imuValues['kalmanY']
-        
+
             #Calculate the new tilt compensated values
             #The compass and accelerometer are orientated differently on the the BerryIMUv1, v2 and v3.
             #This needs to be taken into consideration when performing the calculations
@@ -127,6 +128,26 @@ class MainThread(threading.Thread):
                 tiltCompensatedHeading += 360
         
             ##################### END Tilt Compensation ########################
+
+            self.parent.db_write("PITCH", pitch)
+            self.parent.db_write("ROLL", roll)
+            self.parent.db_write("HEAD", heading)
+        #   self.parent.db_write("ALAT", ) # based on 'slipskid' which is unknown to me right now
+            self.parent.db_write("AIRPRESS", pressure)
+            stdbaro = 29.92
+            currentbaro = self.parent.db_read("BARO")
+            init_alt = round((float(altitude)*3.28083989502))
+            self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
+            myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
+            self.parent.db_write("ALT", myAltitude)
+
+        #   self.parent.db_write("BARO", pressure) # --- Altimiter setting ???
+        #   self.parent.db_write("AOA", )  # AOA  - Angle of attack       ?
+        #   self.parent.db_write("GS", )   # GS   - Ground speed          has to come from GPS
+        #   self.parent.db_write("LAT", )  # LAT  - Latitude              has to come from GPS
+        #   self.parent.db_wrtie("LONG", ) # LONG - Longitude             has to come from GPS
+        #   self.parent.db_write("VS", )   # VS   - Vertical speed speed  has to come from GPS
+        #   self.parent.db_write("IAS", )  # IAS  - Indicated airspeed    has to come from GPS
 
             print("\n")
 
