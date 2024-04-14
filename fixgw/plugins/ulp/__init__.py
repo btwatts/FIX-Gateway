@@ -42,6 +42,14 @@ def handle_ctrl_c(signal, frame):
     time.sleep(2)
     sys.exit(130) # 130 is standard exit code for ctrl-c
 
+def convertTuple(tup):
+    str = ''
+    for item in tup:
+        if (str != ''):
+            str = str + ':'
+        str = str + item
+    return str
+
 class MainThread(threading.Thread):
     def __init__(self, parent):
         """The calling object should pass itself as the parent.
@@ -64,14 +72,6 @@ class MainThread(threading.Thread):
         """Test initialization of multiple sensor packs."""
         self.bmp388 = BMP388()
         self.imu = BERRYIMU()
-
-    def convertTuple(tup):
-        str = ''
-        for item in tup:
-            if (str != ''):
-                str = str + ':'
-            str = str + item
-        return str
 
     def run(self):
 
