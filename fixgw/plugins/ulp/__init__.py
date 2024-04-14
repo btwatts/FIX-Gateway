@@ -159,6 +159,11 @@ class MainThread(threading.Thread):
 
             print(outputString)  # this should print the loop time header whether or not the counter is included
 
+            if 1:    # debug
+                outputString  = "\n\t"
+                outputString += '# Current BARO = %'%(currentbaro)
+                print(outputString)
+
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
                 outputString  = "\n\t"
                 outputString += '# Temperature = %.1f Pressure = %.2f'%(temperature/100.0,pressure/100.0)
