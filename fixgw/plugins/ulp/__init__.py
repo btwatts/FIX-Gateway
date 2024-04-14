@@ -67,7 +67,11 @@ class MainThread(threading.Thread):
         self.imu.initialize()
 
         a = datetime.now()
-        print("ulp plugin Test ...\n")
+        print("ulp plugin Test ... ")
+        if 1:                       #Change to '0' to stop showing the current path
+            print("  path  " + os.path.dirname(__file__))
+
+        print ("\n")
 
         while not self.getout:
             time.sleep(self.sleep_time)
@@ -125,6 +129,7 @@ class MainThread(threading.Thread):
             ##################### END Tilt Compensation ########################
 
             print("\n")
+
             if 1:                       #Change to '0' to stop showing loop counter
                 outputString += "  # " + str( self.count )
 
