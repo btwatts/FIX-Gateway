@@ -52,10 +52,13 @@ class MainThread(threading.Thread):
         self.getout = False     # indicator for when to stop
         self.parent = parent    # parent plugin object
         self.log = parent.log   # simplifies logging
-        self.count = 0
+
         self.sleep_time = 3     # BUGBUG
       # self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
       # self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
+
+        self.count = 0
+        self.alt = 0
         self.smooted = 0.8 # smooth altitude 0 to 1, 1 is very smooth.
 
         """Test initialization of multiple sensor packs."""
