@@ -65,6 +65,14 @@ class MainThread(threading.Thread):
         self.bmp388 = BMP388()
         self.imu = BERRYIMU()
 
+    def convertTuple(tup):
+        str = ''
+        for item in tup:
+            if (str != ''):
+                str = str + ':'
+            str = str + item
+        return str
+
     def run(self):
 
         self.bmp388.initialize()
@@ -161,7 +169,7 @@ class MainThread(threading.Thread):
 
             if 1:    # debug
                 outputString  = "\n\t"
-                outputString += '# Current BARO = %.2f'%(currentbaro.value)
+                outputString += '# Current BARO = ' + convertTuple(currentbaro)
                 print(outputString)
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
