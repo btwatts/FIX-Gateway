@@ -161,7 +161,7 @@ class MainThread(threading.Thread):
 
             if 1:    # debug
                 outputString  = "\n\t"
-                outputString += '# Current BARO = %2.f'%(currentbaro[0])
+                outputString += '# Current BARO = %.2f'%(currentbaro[0])
                 print(outputString)
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
