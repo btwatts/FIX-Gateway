@@ -160,32 +160,34 @@ class MainThread(threading.Thread):
             print(outputString)  # this should print the loop time header whether or not the counter is included
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
-                outputString = "\n\t"
-                outputString +=  '# Temperature = %.1f Pressure = %.2f  Altitude = %.2f'%(temperature/100.0,pressure/100.0,altitude/100.0)
+                outputString  = "\n\t"
+                outputString += '# Temperature = %.1f Pressure = %.2f  Altitude = %.2f Alt = %.2f'%(temperature/100.0,pressure/100.0)
+                outputString += "\n\t"
+                outputString += '# Altitude = %.2f  myAltitude = %.2f'%(altitude/100,myAltitude/100)
                 print(outputString)
 
             if 1:                       #Change to '0' to stop showing the angles from the accelerometer
-                outputString = "\n\t"
+                outputString  = "\n\t"
                 outputString += "# ACCX %5.2f ACCY %5.2f" % (AccXangle, AccYangle)
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the gyro
-                outputString = "\n"
+                outputString  = "\n"
                 outputString +="\t# GRYX %5.2f  GYRY %5.2f  GYRZ %5.2f" % (gyroXangle,gyroYangle,gyroZangle)
                 print (outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
-                outputString = "\n"
+                outputString  = "\n"
                 outputString +="\t# CFangleX %5.2f   CFangleY %5.2f" % (CFangleX,CFangleY)
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the heading
-                outputString = "\n"
+                outputString  = "\n"
                 outputString +="\t# HEADING %5.2f   tiltCompHeading %5.2f" % (heading,tiltCompensatedHeading)
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
-                outputString = "\n\t"
+                outputString  = "\n\t"
                 outputString +="# kalmanX %5.2f kalmanY %5.2f" % (kalmanX,kalmanY)
                 print(outputString)
 
