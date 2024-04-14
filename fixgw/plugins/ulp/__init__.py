@@ -47,7 +47,7 @@ def convertTuple(tup):
     for item in tup:
         if (str != ''):
             str = str + ':'
-        str = str + item
+        str = str + str(item)
     return str
 
 class MainThread(threading.Thread):
