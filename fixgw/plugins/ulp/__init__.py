@@ -161,7 +161,7 @@ class MainThread(threading.Thread):
 
             if 1:                       #Change to '0' to stop showing Temperature Pressure and Altitude
                 outputString  = "\n\t"
-                outputString += '# Temperature = %.1f Pressure = %.2f  Altitude = %.2f Alt = %.2f'%(temperature/100.0,pressure/100.0)
+                outputString += '# Temperature = %.1f Pressure = %.2f'%(temperature/100.0,pressure/100.0)
                 outputString += "\n\t"
                 outputString += '# Altitude = %.2f  myAltitude = %.2f'%(altitude/100,myAltitude/100)
                 print(outputString)
