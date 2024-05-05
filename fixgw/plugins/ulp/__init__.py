@@ -142,8 +142,9 @@ class MainThread(threading.Thread):
         #   time.sleep(self.sleep_time)
             self.parent.db_write("AIRPRESS", pressure/100.0)  # BUGBUG matching below
             time.sleep(self.sleep_time)
-            currentbaro = self.parent.db_read("BARO")
-            stdbaro = currentbaro[0]  # 29.92
+        # BUGBUG         currentbaro = self.parent.db_read("BARO")
+        # BUGBUG         stdbaro = currentbaro[0]  # 29.92
+            stdbaro = 29.92
         #    init_alt = round((float(altitude)*3.28083989502))
         #    self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
         #    myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
