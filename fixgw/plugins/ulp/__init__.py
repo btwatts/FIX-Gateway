@@ -140,17 +140,17 @@ class MainThread(threading.Thread):
             time.sleep(self.sleep_time)
         #   self.parent.db_write("ALAT", ) # based on 'slipskid' which is unknown to me right now
         #   time.sleep(self.sleep_time)
-            self.parent.db_write("AIRPRESS", pressure)
+            self.parent.db_write("AIRPRESS", pressure/100.0)  # BUGBUG matching below
             time.sleep(self.sleep_time)
             currentbaro = self.parent.db_read("BARO")
             stdbaro = currentbaro[0]  # 29.92
         #    init_alt = round((float(altitude)*3.28083989502))
         #    self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
         #    myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
-            self.parent.db_write("ALT", altitude) # myAltitude
+            self.parent.db_write("ALT", altitude/100) # myAltitude
             time.sleep(self.sleep_time)
 
-            self.parent.db_write("BARO", pressure) # --- Altimiter setting ???
+            self.parent.db_write("BARO", pressure/100.0) # --- Altimiter setting ???
             time.sleep(self.sleep_time)
         #   self.parent.db_write("AOA", )  # AOA  - Angle of attack       ?
         #   self.parent.db_write("GS", )   # GS   - Ground speed          has to come from GPS
