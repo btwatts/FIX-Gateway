@@ -53,8 +53,8 @@ class MainThread(threading.Thread):
         self.parent = parent    # parent plugin object
         self.log = parent.log   # simplifies logging
 
-        self.sleep_time = 3     # BUGBUG
-      # self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
+      # self.sleep_time = 3     # BUGBUG
+        self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
       # self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
 
         self.count = 0
@@ -133,18 +133,25 @@ class MainThread(threading.Thread):
             ##################### END Tilt Compensation ########################
 
             self.parent.db_write("PITCH", pitch)
+            time.sleep(self.sleep_time)
             self.parent.db_write("ROLL", roll)
+            time.sleep(self.sleep_time)
             self.parent.db_write("HEAD", heading)
+            time.sleep(self.sleep_time)
         #   self.parent.db_write("ALAT", ) # based on 'slipskid' which is unknown to me right now
+        #   time.sleep(self.sleep_time)
             self.parent.db_write("AIRPRESS", pressure)
+            time.sleep(self.sleep_time)
             currentbaro = self.parent.db_read("BARO")
             stdbaro = currentbaro[0]  # 29.92
         #    init_alt = round((float(altitude)*3.28083989502))
         #    self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
         #    myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
             self.parent.db_write("ALT", altitude) # myAltitude
+            time.sleep(self.sleep_time)
 
-        #   self.parent.db_write("BARO", pressure) # --- Altimiter setting ???
+            self.parent.db_write("BARO", pressure) # --- Altimiter setting ???
+            time.sleep(self.sleep_time)
         #   self.parent.db_write("AOA", )  # AOA  - Angle of attack       ?
         #   self.parent.db_write("GS", )   # GS   - Ground speed          has to come from GPS
         #   self.parent.db_write("LAT", )  # LAT  - Latitude              has to come from GPS
@@ -195,6 +202,8 @@ class MainThread(threading.Thread):
                 outputString  = "\n\t"
                 outputString +="# kalmanX %5.2f kalmanY %5.2f" % (kalmanX,kalmanY)
                 print(outputString)
+            if 1:
+                time.sleep(2) # BUGBUG debugging this way for now
 
         self.running = False
 
