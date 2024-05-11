@@ -145,7 +145,7 @@ class MainThread(threading.Thread):
         # BUGBUG         currentbaro = self.parent.db_read("BARO")
         # BUGBUG         stdbaro = currentbaro[0]  # 29.92
             stdbaro = 29.92
-            currentbaro = { stdbaro } # BUGBUG DEBUG
+            currentbaro = [ stdbaro ] # BUGBUG DEBUG
         #    init_alt = round((float(altitude)*3.28083989502))
         #    self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
         #    myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
