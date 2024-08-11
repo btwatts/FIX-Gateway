@@ -497,7 +497,7 @@ connections:
 #MAP
 
   demo:
-    load: yes
+    load: no
     module: fixgw.plugins.demo
 
 # Logging configuration - See Python logging.config module documenation

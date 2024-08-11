@@ -85,7 +85,7 @@ class BERRYIMU(object):
         self.oldYAccRawValue = 0
         self.oldZAccRawValue = 0
 
-    #Setup the tables for the mdeian filter. Fill them all with '1' so we dont get devide by zero error
+    #Setup the tables for the median filter. Fill them all with '1' so we dont get devide by zero error
         self.acc_medianTable1X = [1] * ACC_MEDIANTABLESIZE
         self.acc_medianTable1Y = [1] * ACC_MEDIANTABLESIZE
         self.acc_medianTable1Z = [1] * ACC_MEDIANTABLESIZE
@@ -176,7 +176,7 @@ class BERRYIMU(object):
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz}
 
     def readCalibrated(self, LP):
-        imuDict = BERRYIMU.readIMU(self)
+        imuDict = BERRYIMU.readIMU() #was: (self) # do we need to pass self in this case ??? I do not think so
         ACCx = imuDict['ACCx']
         ACCy = imuDict['ACCy']
         ACCz = imuDict['ACCz']
@@ -195,12 +195,12 @@ class BERRYIMU(object):
     ###############################################
     #### Apply low pass filter ####
     ###############################################
-        MAGx =  MAGx  * MAG_LPF_FACTOR + self.oldXMagRawValue*(1 - MAG_LPF_FACTOR);
-        MAGy =  MAGy  * MAG_LPF_FACTOR + self.oldYMagRawValue*(1 - MAG_LPF_FACTOR);
-        MAGz =  MAGz  * MAG_LPF_FACTOR + self.oldZMagRawValue*(1 - MAG_LPF_FACTOR);
-        ACCx =  ACCx  * ACC_LPF_FACTOR + self.oldXAccRawValue*(1 - ACC_LPF_FACTOR);
-        ACCy =  ACCy  * ACC_LPF_FACTOR + self.oldYAccRawValue*(1 - ACC_LPF_FACTOR);
-        ACCz =  ACCz  * ACC_LPF_FACTOR + self.oldZAccRawValue*(1 - ACC_LPF_FACTOR);
+        MAGx =  MAGx  * MAG_LPF_FACTOR + self.oldXMagRawValue*(1 - MAG_LPF_FACTOR)
+        MAGy =  MAGy  * MAG_LPF_FACTOR + self.oldYMagRawValue*(1 - MAG_LPF_FACTOR)
+        MAGz =  MAGz  * MAG_LPF_FACTOR + self.oldZMagRawValue*(1 - MAG_LPF_FACTOR)
+        ACCx =  ACCx  * ACC_LPF_FACTOR + self.oldXAccRawValue*(1 - ACC_LPF_FACTOR)
+        ACCy =  ACCy  * ACC_LPF_FACTOR + self.oldYAccRawValue*(1 - ACC_LPF_FACTOR)
+        ACCz =  ACCz  * ACC_LPF_FACTOR + self.oldZAccRawValue*(1 - ACC_LPF_FACTOR)
     
         self.oldXMagRawValue = MAGx
         self.oldYMagRawValue = MAGy
@@ -234,9 +234,11 @@ class BERRYIMU(object):
         self.acc_medianTable2Z.sort()
 
     # The middle value is the value we are interested in
-        ACCx = self.acc_medianTable2X[int(ACC_MEDIANTABLESIZE/2)];
-        ACCy = self.acc_medianTable2Y[int(ACC_MEDIANTABLESIZE/2)];
-        ACCz = self.acc_medianTable2Z[int(ACC_MEDIANTABLESIZE/2)];
+        ACCx = self.acc_medianTable2X[int(ACC_MEDIANTABLESIZE/2)]
+        ACCy = self.acc_medianTable2Y[int(ACC_MEDIANTABLESIZE/2)]
+        ACCz = self.acc_medianTable2Z[int(ACC_MEDIANTABLESIZE/2)]
+
+
 
     #########################################
     #### Median filter for magnetometer ####
@@ -263,9 +265,11 @@ class BERRYIMU(object):
         self.mag_medianTable2Z.sort()
 
     # The middle value is the value we are interested in
-        MAGx = self.mag_medianTable2X[int(MAG_MEDIANTABLESIZE/2)];
-        MAGy = self.mag_medianTable2Y[int(MAG_MEDIANTABLESIZE/2)];
-        MAGz = self.mag_medianTable2Z[int(MAG_MEDIANTABLESIZE/2)];
+        MAGx = self.mag_medianTable2X[int(MAG_MEDIANTABLESIZE/2)]
+        MAGy = self.mag_medianTable2Y[int(MAG_MEDIANTABLESIZE/2)]
+        MAGz = self.mag_medianTable2Z[int(MAG_MEDIANTABLESIZE/2)]
+
+
 
     #Convert Gyro raw to degrees per second
         rate_gyr_x =  GYRx * G_GAIN
@@ -290,6 +294,8 @@ class BERRYIMU(object):
         else:
             AccYangle += 90.0
 
+
+
     #Complementary filter used to combine the accelerometer and gyro values.
         self.CFangleX=AA*(self.CFangleX+rate_gyr_x*LP) +(1 - AA) * AccXangle
         self.CFangleY=AA*(self.CFangleY+rate_gyr_y*LP) +(1 - AA) * AccYangle
@@ -311,6 +317,7 @@ class BERRYIMU(object):
     #Normalize accelerometer raw values.
         accXnorm = ACCx/math.sqrt(ACCx * ACCx + ACCy * ACCy + ACCz * ACCz)
         accYnorm = ACCy/math.sqrt(ACCx * ACCx + ACCy * ACCy + ACCz * ACCz)
+
 
     #Calculate pitch and roll
         pitch = math.asin(accXnorm)
@@ -369,7 +376,7 @@ if __name__ == '__main__':
           #This needs to be taken into consideration when performing the calculations
 
           #X compensation
-          if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+          if(self.imu.version() == 1 or self.imu.version() == 3):              #LSM9DS0 and (LSM6DSL & LIS2MDL)
               magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
           else:                                                                #LSM9DS1
               magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
@@ -380,11 +387,16 @@ if __name__ == '__main__':
           else:                                                                #LSM9DS1
               magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
 
+
+
+
+
           #Calculate tilt compensated heading
           tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/M_PI
 
           if tiltCompensatedHeading < 0:
               tiltCompensatedHeading += 360
+
 
           ##################### END Tilt Compensation ########################
 
@@ -400,7 +412,7 @@ if __name__ == '__main__':
           if 1:                       #Change to '0' to stop  showing the angles from the gyro
               outputString = "\n"
               outputString +="\t# GRYX Angle %5.2f  GYRY Angle %5.2f  GYRZ Angle %5.2f # " % (gyroXangle,gyroYangle,gyroZangle)
-              print(outpuString)
+              print(outputString)
 
           if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
               outputString = "\n"
@@ -418,5 +430,5 @@ if __name__ == '__main__':
               print(outputString)
 
           #slow program down a bit, makes the output more readable
-          time.sleep(2)
+          time.sleep(0.03)
 

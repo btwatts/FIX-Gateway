@@ -22,12 +22,13 @@
 #  plugin where the main Plugin class creates a thread and starts the thread
 #  when the plugin's run() function is called.
 
-import os
 import sys
-import threading
-import math
 import time
+import math
 from datetime import datetime
+import os
+import threading
+
 from collections import OrderedDict
 import fixgw.plugin as plugin
 
