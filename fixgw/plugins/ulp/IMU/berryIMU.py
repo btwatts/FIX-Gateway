@@ -176,7 +176,7 @@ class BERRYIMU(object):
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz}
 
     def readCalibrated(self, LP):
-        imuDict = BERRYIMU.readIMU() #was: (self) # do we need to pass self in this case ??? I do not think so
+        imuDict = BERRYIMU.readIMU(self)
         ACCx = imuDict['ACCx']
         ACCy = imuDict['ACCy']
         ACCz = imuDict['ACCz']
@@ -334,9 +334,9 @@ class BERRYIMU(object):
 
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
 
-    def runTest(self):
+    #def runTest(self):
         import time
         from datetime import datetime
         a = datetime.now()
