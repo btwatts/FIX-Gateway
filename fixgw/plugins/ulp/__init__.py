@@ -207,7 +207,7 @@ class MainThread(threading.Thread):
                 outputString +="# kalmanX %5.2f kalmanY %5.2f" % (kalmanX,kalmanY)
                 print(outputString)
             if 1:
-                time.sleep(2) # BUGBUG debugging this way for now
+                time.sleep(0.03)
 
         self.running = False
 

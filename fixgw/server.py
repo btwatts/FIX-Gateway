@@ -70,6 +70,7 @@ def load_plugin(name, module, config):
     # Add some global information to the config
     config["CONFIGPATH"] = config_path
     plugins[name] = plugin_mods[name].Plugin(name, config)
+    print(f"Name: {plugins[name]} ({name})  Config: {config['CONFIGPATH']}")  ## BUGBUG DEBUG LOADER CODE
 
 
 # This function recursively walks the given directory in the installed
