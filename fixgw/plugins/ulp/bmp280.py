@@ -216,3 +216,9 @@ class BMP280:
             temperature = manual_temperature
         altitude = ((pow((qnh / pressure), (1.0 / 5.257)) - 1) * (temperature + 273.15)) / 0.0065
         return altitude
+
+    # Note: combine the above calls using only one self.update_sensor from self.get_altitude()
+    def get_temperature_and_pressure_and_altitude(self):
+        altitude = self.get_altitude()
+        return (self.temperature, self.pressure, altitude)
+
