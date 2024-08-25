@@ -55,20 +55,25 @@ class MainThread(threading.Thread):
         self.log = parent.log   # simplifies logging
 
       # self.sleep_time = 3     # BUGBUG
-        self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
-      # self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
+      # self.sleep_time = .03   # 3 x .03  gives +/-10Hz refresh rate
+        self.sleep_time = 0.005 # 3 x .005 gives +/-60Hz refresh rate
 
         self.count = 0
         self.alt = 0
         self.smooted = 0.8 # smooth altitude 0 to 1, 1 is very smooth.
 
         """Test initialization of multiple sensor packs."""
-        self.bmp388 = BMP388()
+        self.bmp = BMP388()            
         self.imu = BERRYIMU()
 
     def run(self):
 
-        self.bmp388.initialize()
+       #self.bmp.initialize()
+        if self.bmp.initialize() == None:
+            from fixgw.plugins.ulp.bmp280 import BMP280
+            self.bmp = BMP280()
+            self.bmp.initialize()
+
         self.imu.initialize()
 
         a = datetime.now()
@@ -82,7 +87,7 @@ class MainThread(threading.Thread):
             time.sleep(self.sleep_time)
             self.count += 1
 
-            temperature,pressure,altitude = self.bmp388.get_temperature_and_pressure_and_altitude()
+            temperature,pressure,altitude = self.bmp.get_temperature_and_pressure_and_altitude()
             ## print('  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
 
             ##Calculate loop Period(LP). How long between Gyro Reads
@@ -143,14 +148,16 @@ class MainThread(threading.Thread):
         #   time.sleep(self.sleep_time)
             self.parent.db_write("AIRPRESS", pressure/100.0)  # BUGBUG matching below
             time.sleep(self.sleep_time)
-        # BUGBUG         currentbaro = self.parent.db_read("BARO")
-        # BUGBUG         stdbaro = currentbaro[0]  # 29.92
-            stdbaro = 29.92
-            currentbaro = [] # BUGBUG DEBUG
-            currentbaro.append(stdbaro) # BUGBUG DEBUG
+        # BUGBUG
+            currentbaro = self.parent.db_read("BARO")
+        # BUGBUG     
+            stdbaro = currentbaro[0]  # 29.92
+        #    stdbaro = 29.92
+        #    currentbaro = [] # BUGBUG DEBUG
+        #    currentbaro.append(stdbaro) # BUGBUG DEBUG
         #    init_alt = round((float(altitude)*3.28083989502))
         #    self.alt = float((self.alt*self.smooted)+(1.0-self.smooted)*(init_alt))
-        #    myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
+            myAltitude = ((float(currentbaro[0]) - stdbaro)*1000) + self.alt
             self.parent.db_write("ALT", altitude/100) # myAltitude
             time.sleep(self.sleep_time)
 
@@ -159,7 +166,7 @@ class MainThread(threading.Thread):
         #   self.parent.db_write("AOA", )  # AOA  - Angle of attack       ?
         #   self.parent.db_write("GS", )   # GS   - Ground speed          has to come from GPS
         #   self.parent.db_write("LAT", )  # LAT  - Latitude              has to come from GPS
-        #   self.parent.db_wrtie("LONG", ) # LONG - Longitude             has to come from GPS
+        #   self.parent.db_write("LONG", ) # LONG - Longitude             has to come from GPS
         #   self.parent.db_write("VS", )   # VS   - Vertical speed speed  has to come from GPS
         #   self.parent.db_write("IAS", )  # IAS  - Indicated airspeed    has to come from GPS
 
