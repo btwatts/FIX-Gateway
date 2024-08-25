@@ -529,6 +529,8 @@ if __name__ == '__main__':
  for x in range(0,2): #while True:
   time.sleep(0.5)
   Values280 = bmp280.Get()
+  print(Values280)
+  print()
   temperature = Values280.temperature()
   pressure = Values280.pressure()
   altitude = ((pow((qnh / pressure), (1.0 / 5.257)) - 1) * (temperature + 273.15)) / 0.0065
