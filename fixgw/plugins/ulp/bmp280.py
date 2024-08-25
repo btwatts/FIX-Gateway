@@ -523,11 +523,11 @@ if __name__ == '__main__':
  
  print("BMP280 Test Program ...\n")
  
- bmp388 = BMP280()
+ bmp280 = BMP280()
  
- bmp388.initialize()
+ #bmp280.initialize()
 
  while True:
   time.sleep(0.5)
-  temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
+  temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
   print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
