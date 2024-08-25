@@ -526,6 +526,8 @@ if __name__ == '__main__':
  
  #bmp280.initialize()
 
+ bmp280.Measure()
+
  while True:
   time.sleep(0.5)
   temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
