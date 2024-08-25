@@ -14,8 +14,12 @@ from i2cdevice.adapter import Adapter, LookupAdapter
 __version__ = "1.0.0"
 
 CHIP_ID = 0x58
-I2C_ADDRESS_GND = 0x76
-I2C_ADDRESS_VCC = 0x77
+
+# define BMP280 Device I2C address
+
+I2C_ADD_BMP280_AD0_LOW = 0x76
+I2C_ADD_BMP280_AD0_HIGH = 0x77
+I2C_ADD_BMP280 = I2C_ADD_BMP280_AD0_HIGH
 
 
 class S16Adapter(Adapter):
@@ -81,12 +85,12 @@ class BMP280Calibration:
 
 
 class BMP280:
-    def __init__(self, i2c_addr=I2C_ADDRESS_GND, i2c_dev=None):
+    def __init__(self, i2c_addr=I2C_ADD_BMP280, i2c_dev=None):
         self.calibration = BMP280Calibration()
         self._is_setup = False
         self._i2c_addr = i2c_addr
         self._i2c_dev = i2c_dev
-        self._bmp280 = Device([I2C_ADDRESS_GND, I2C_ADDRESS_VCC], i2c_dev=self._i2c_dev, bit_width=8, registers=(
+        self._bmp280 = Device([I2C_ADD_BMP280, I2C_ADD_BMP280_AD0_LOW], i2c_dev=self._i2c_dev, bit_width=8, registers=(
             Register("CHIP_ID", 0xD0, fields=(
                 BitField("id", 0xFF),
             )),
