@@ -10,6 +10,10 @@ class BMP280:
     self.i2c = board.I2C()
     self.sensor = adafruit_bmp280.Adafruit_BMP280_I2C(self.i2c)
 
+  # Return temperature in Celcius....
+  def get_temperature(self):
+    return self.get_celcius()
+
   # Return temperature in Celcius
   def get_celcius(self):
     return self.sensor.temperature
