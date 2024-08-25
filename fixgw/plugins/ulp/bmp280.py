@@ -71,4 +71,4 @@ if __name__ == '__main__':
   for x in range(0,2): # while True:
     time.sleep(0.5)
     temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
-    print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+    print(' Temperature = %.1f Pressure = %.2f  Altitude = %.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
