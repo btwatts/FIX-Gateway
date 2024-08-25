@@ -532,9 +532,15 @@ if __name__ == '__main__':
   print(Values280)
   print()
   temperature = Values280.temperature
+  print(f"temp: {temperature}")
   pressure = Values280.pressure
-  altitude = ((pow((qnh / pressure), (1.0 / 5.257)) - 1) * (temperature + 273.15)) / 0.0065
+  print(f"press: {pressure}")
+  localPressure = pressure / 100
+  altitude = ((pow((qnh / localPressure), (1.0 / 5.257)) - 1) * (temperature + 273.15)) / 0.0065
+  print(f"old alt: {altitude}")
+  newAlt = 44330*(1-pow(localPressure / 1013.25, 1/5.255))*100
+  print(f"new alt: {newAlt}")
   #temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
-  print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+  #print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
 
   
