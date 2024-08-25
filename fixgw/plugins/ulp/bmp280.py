@@ -531,8 +531,8 @@ if __name__ == '__main__':
   Values280 = bmp280.Get()
   print(Values280)
   print()
-  temperature = Values280.temperature()
-  pressure = Values280.pressure()
+  temperature = Values280.temperature
+  pressure = Values280.pressure
   altitude = ((pow((qnh / pressure), (1.0 / 5.257)) - 1) * (temperature + 273.15)) / 0.0065
   #temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
   print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
