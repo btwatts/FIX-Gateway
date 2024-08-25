@@ -523,13 +523,14 @@ if __name__ == '__main__':
  print("BMP280 Test Program ...\n")
  
  bmp280 = BMP280()
+ bmp280.__LoadDefaultCalibrationCoef()
  
  #bmp280.initialize()
  qnh=1013.25
  for x in range(0,2): #while True:
   time.sleep(0.5)
   Values280 = bmp280.Get()
-  print(Values280)
+  print(f"object: {Values280}")
   print()
   temperature = Values280.temperature
   print(f"temp: {temperature}")
@@ -538,7 +539,7 @@ if __name__ == '__main__':
   localPressure = pressure / 100
   altitude = ((pow((qnh / localPressure), (1.0 / 5.257)) - 1) * (temperature + 273.15)) / 0.0065
   print(f"old alt: {altitude}")
-  newAlt = 44330*(1-pow(localPressure / 1013.25, 1/5.255))*100
+  newAlt = 44330*(1.0-pow(localPressure / 1013.25, 0.1902949571836346)) #* 100 # Note:  0.1902949571836346 is: 1/5.255
   print(f"new alt: {newAlt}")
   print(f"check alt: {newAlt / 100}")
   #temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
