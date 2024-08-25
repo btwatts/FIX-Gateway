@@ -70,7 +70,7 @@ class MainThread(threading.Thread):
 
        #self.bmp.initialize()
         if self.bmp.initialize() == None:
-            from fixgw.plugins.ulp.bmp280 import BMP280, BMP280_ADDRESS
+            from fixgw.plugins.ulp.bmp280 import BMP280
             self.bmp = BMP280()
             self.bmp.initialize()
 
