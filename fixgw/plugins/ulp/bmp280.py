@@ -526,9 +526,11 @@ if __name__ == '__main__':
  
  #bmp280.initialize()
 
- bmp280.Measure()
+ print(bmp280.Measure())
 
  while True:
   time.sleep(0.5)
   temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
   print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+
+  print(bmp280.Get())
