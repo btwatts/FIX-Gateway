@@ -515,3 +515,19 @@ class BMP280:
         self.pressure = self.MeasurePressure()
         self.altitude = ((pow((qnh / self.pressure), (1.0 / 5.257)) - 1) * (self.temperature + 273.15)) / 0.0065
         return (self.temperature, self.pressure, self.altitude)
+
+
+if __name__ == '__main__':
+
+ import time
+ 
+ print("BMP280 Test Program ...\n")
+ 
+ bmp388 = BMP280()
+ 
+ bmp388.initialize()
+
+ while True:
+  time.sleep(0.5)
+  temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
+  print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
