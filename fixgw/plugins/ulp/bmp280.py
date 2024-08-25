@@ -187,7 +187,7 @@ class BMP280:
         self.calibration.set_from_namedtuple(self._bmp280.get("CALIBRATION"))
 
     def update_sensor(self):
-        self.setup()
+        self.setup("forced")
 
         if self._mode == "forced":
             # Trigger a reading in forced mode and wait for result
@@ -223,6 +223,6 @@ class BMP280:
 
     # Note: combine the above calls using only one self.update_sensor from self.get_altitude()
     def get_temperature_and_pressure_and_altitude(self):
-        altitude = self.get_altitude()
+        altitude = self.get_altitude(manual_temperature=True)
         return (self.temperature, self.pressure, altitude)
 
