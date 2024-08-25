@@ -540,6 +540,7 @@ if __name__ == '__main__':
   print(f"old alt: {altitude}")
   newAlt = 44330*(1-pow(localPressure / 1013.25, 1/5.255))*100
   print(f"new alt: {newAlt}")
+  print(f"check alt: {newAlt / 100}")
   #temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
   #print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
 
