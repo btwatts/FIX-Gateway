@@ -36,6 +36,12 @@ class BMP280:
     altitude = self.get_altitude(seaLevelhPa)
     return altitude * 3.28084
 
+  def get_temperature_and_pressure_and_altitude(self):
+    """Returns pressure in Pa as double. Output value of "6386.2"equals 96386.2 Pa = 963.862 hPa."""
+    temperature = self.get_temperature()
+    pressure = self.get_pressure()
+    altitude = self.get_altitude()
+    return (temperature, pressure, altitude)
 
 if __name__ == '__main__':
 
@@ -60,3 +66,9 @@ if __name__ == '__main__':
   print(f"check alt: {bmp280.get_altitude()}")
 
   print(f"altitude in feet: {bmp280.get_altitude_in_feet()}")
+
+  print("-----")
+  for x in range(0,2): # while True:
+    time.sleep(0.5)
+    temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
+    print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
