@@ -523,7 +523,7 @@ if __name__ == '__main__':
  print("BMP280 Test Program ...\n")
  
  bmp280 = BMP280()
- bmp280.__LoadDefaultCalibrationCoef()
+ bmp280._BMP280__LoadDefaultCalibrationCoef()
  
  #bmp280.initialize()
  qnh=1013.25
