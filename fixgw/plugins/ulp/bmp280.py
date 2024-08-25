@@ -503,19 +503,18 @@ class BMP280:
     """
     self.SetMode(BMP280_Mode.SLEEP)
 
-    def get_temperature_and_pressure_and_altitude(self, qnh=1013.25, manual_temperature=None):
-        # qnh = pressure at sea level where the readings are being taken.
-        # The temperature should be the outdoor temperature.
-        # Use the manual_temperature variable if temperature adjustments are required.
+  def get_temperature_and_pressure_and_altitude(self, qnh=1013.25, manual_temperature=None):
+      # qnh = pressure at sea level where the readings are being taken.
+      # The temperature should be the outdoor temperature.
+      # Use the manual_temperature variable if temperature adjustments are required.
 
-        if manual_temperature is None:
-            self.temperature = self.MeasureTemperature()
-        else:
-            self.temperature = manual_temperature
-        self.pressure = self.MeasurePressure()
-        self.altitude = ((pow((qnh / self.pressure), (1.0 / 5.257)) - 1) * (self.temperature + 273.15)) / 0.0065
-        return (self.temperature, self.pressure, self.altitude)
-
+      if manual_temperature is None:
+          self.temperature = self.MeasureTemperature()
+      else:
+          self.temperature = manual_temperature
+      self.pressure = self.MeasurePressure()
+      self.altitude = ((pow((qnh / self.pressure), (1.0 / 5.257)) - 1) * (self.temperature + 273.15)) / 0.0065
+      return (self.temperature, self.pressure, self.altitude)
 
 if __name__ == '__main__':
 
