@@ -41,7 +41,7 @@ class BMP280:
     temperature = self.get_temperature()
     pressure = self.get_pressure()
     altitude = self.get_altitude()
-    return (temperature, pressure, altitude)
+    return (temperature*100, pressure*100, altitude*100)
 
 if __name__ == '__main__':
 
