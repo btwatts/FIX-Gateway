@@ -242,6 +242,8 @@ class Plugin(plugin.PluginBase):
         if (hasattr(super, "run") and callable(super.run)):
             print("calling super.run()")
             super(Plugin, self).run()
+        else:
+            print("error: super.run() was not found or not callable")
 
         self.thread.start()
 
