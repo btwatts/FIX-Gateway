@@ -77,6 +77,8 @@ class MainThread(threading.Thread):
         self.imu.initialize()
 
         a = datetime.now()
+        self.log.debug("ulp plugin started")
+
         print("ulp plugin Test ... ")
         if 1:                       #Change to '0' to stop showing the current path
             print("  path  " + os.path.dirname(__file__))
