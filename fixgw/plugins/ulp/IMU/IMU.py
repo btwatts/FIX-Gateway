@@ -18,6 +18,7 @@ class IMU(object):
         #BerryIMUv1 uses the LSM9DS0
         #BerryIMUv2 uses the LSM9DS1
         #BerryIMUv3 uses the LSM6DSL and LIS3MDL
+        #WHAT ABOUT IMUv4 ???
 
         try:
             #Check for BerryIMUv1 (LSM9DS0)

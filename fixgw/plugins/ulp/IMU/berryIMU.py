@@ -41,12 +41,22 @@ class BERRYIMU(object):
 # Calibrating the compass isnt mandatory, however a calibrated
 # compass will result in a more accurate heading value.
 
+# MY Version 4 (v4) returned the following values....
         self.magXmin =  -562
         self.magYmin =  -1002
         self.magZmin =  1811
         self.magXmax =  3096
         self.magYmax =  3261
         self.magZmax =  6458
+# MY Version 3 (v3) returned the following values....
+        self.magXmin =  341
+        self.magYmin =  -3297
+        self.magZmin =  2569
+        self.magXmax =  2326
+        self.magYmax =  -1030
+        self.magZmax =  4584
+# NOTE BUGBUG Since I am currently using the v3...I'm using this without checking which is installed.
+# Perhaps I should be including calibration in the base code so I can self-configure it....
 
 ############### END Calibration offsets #################
 
