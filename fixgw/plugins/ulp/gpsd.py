@@ -21,17 +21,23 @@ class gps_mod:
           if nx['class'] == 'TPV':
               latitude  = getattr(nx,'lat', latitude)
               longitude = getattr(nx,'lon', longitude)
-              break # BUGBUG does this do the same thing as set and return ??
-              # ret = {'lon':longitude,'lat':latitude}
-              # return ret
+              break
       ret = {'lon':longitude,'lat':latitude}
       return ret
 
   def get_timezone(self, lon, lat):
       return get_tz(lon, lat)
 
-  def getPositionData(self, tzone='America/Chicago'):
-      nx = self.gpsd.next()
+  def getPositionData(self, tzone='America/Chicago', output=False):
+      counter = 10 # limit the attempts in case the GPS has not yet fixed
+      while counter > 0:
+          counter -= 1
+          nx = self.gpsd.next()
+          #print(nx['class'])
+          latitude  = "Unknown"
+          longitude = "Unkonwn"
+          speed     = "Unknown"
+          time      = "Unknown"
 
     # nx['class'] == 'VERSION':
     #  <dictwrapper: {'class': 'VERSION', 'release': '3.22', 'rev': '3.22', 'proto_major': 3, 'proto_minor': 14}>
@@ -71,20 +77,23 @@ class gps_mod:
     #  eph
     #  sep
 
-      if nx['class'] == 'TPV':
-          latitude = getattr(nx,'lat', "Unknown")
-          longitude = getattr(nx,'lon', "Unknown")
-          speed = getattr(nx,'speed', "Unknown")
-          timestring = getattr(nx,'time', "Unknown")
+          if nx['class'] == 'TPV':
+              latitude = getattr(nx,'lat', "Unknown")
+              longitude = getattr(nx,'lon', "Unknown")
+              speed = getattr(nx,'speed', "Unknown")
+              timestring = getattr(nx,'time', "Unknown")
 
-          utc_datetime = datetime.strptime(timestring, '%Y-%m-%dT%H:%M:%S.%fZ') # 2024-09-02T14:47:39.000Z
-          from_zone = tz.gettz('UTC')
-          to_zone = tz.gettz(tzone)
-          utc_datetime = utc_datetime.replace(tzinfo=from_zone)
-          time = utc_datetime.astimezone(to_zone)
-          print(f"Your position: lon: {longitude}  lat: {latitude}  speed: {speed}  time: {time}") # tz: {time.tzinfo}")
-          #print(f"timestring: {timestring}")
-
+              utc_datetime = datetime.strptime(timestring, '%Y-%m-%dT%H:%M:%S.%fZ') # 2024-09-02T14:47:39.000Z
+              from_zone = tz.gettz('UTC')
+              to_zone = tz.gettz(tzone)
+              utc_datetime = utc_datetime.replace(tzinfo=from_zone)
+              time = utc_datetime.astimezone(to_zone)
+              if output == True:
+                  print(f"Your position: lon: {longitude}  lat: {latitude}  speed: {speed}  time: {time}") # tz: {time.tzinfo}")
+                 #print(f"timestring: {timestring}")
+              break
+      ret = {'lon':longitude,'lat':latitude,'speed':speed,'time':time}
+      return ret
 
 if __name__ == '__main__':
 

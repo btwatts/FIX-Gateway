@@ -75,7 +75,12 @@ class MainThread(threading.Thread):
         latlon     = self.gps.getLatLon()
         self.lon   = latlon['lon']
         self.lat   = latlon['lat']
+        self.latitude  = getattr(latlon,'lat', "Unknown")
+        self.longitude = getattr(latlon,'lon', "Unknown")
+
         print(f"Longitude: {self.lon}  Latitude: {self.lat}")
+        print(f"Long 2: {self.longitude} Lat 2: {self.latitude}")
+
         self.tzone = self.gps.get_timezone(self.lon, self.lat)
         print(f"Local timezone: {self.tzone}")
 
@@ -103,6 +108,15 @@ class MainThread(threading.Thread):
         while not self.getout:
             time.sleep(self.sleep_time)
             self.count += 1
+
+            ##GPS##
+            nx = self.gps.getPosition(self.tzone)
+            self.latitude  = getattr(nx,'lat', "Unknown")
+            self.longitude = getattr(nx,'lon', "Unknown")
+            self.speed     = getattr(nx,'speed', "Unknown")
+            self.time      = getattr(nx,'time', "Unknown")
+
+            print(f"GPS  DEBUG: lat: {self.latitude} lon: {self.longitude} speed: {self.speed} time: {self.time}")
 
             temperature,pressure,altitude = self.bmp.get_temperature_and_pressure_and_altitude()
             ## print('  Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
