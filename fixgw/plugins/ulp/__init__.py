@@ -75,11 +75,8 @@ class MainThread(threading.Thread):
         latlon     = self.gps.getLatLon()
         self.lon   = latlon['lon']
         self.lat   = latlon['lat']
-        self.latitude  = getattr(latlon,'lat', "Unknown")
-        self.longitude = getattr(latlon,'lon', "Unknown")
 
         print(f"Longitude: {self.lon}  Latitude: {self.lat}")
-        print(f"Long 2: {self.longitude} Lat 2: {self.latitude}")
 
         self.tzone = self.gps.get_timezone(self.lon, self.lat)
         print(f"Local timezone: {self.tzone}")
@@ -111,10 +108,10 @@ class MainThread(threading.Thread):
 
             ##GPS##
             nx = self.gps.getPositionData(self.tzone)
-            self.latitude  = getattr(nx,'lat', "Unknown")
-            self.longitude = getattr(nx,'lon', "Unknown")
-            self.speed     = getattr(nx,'speed', "Unknown")
-            self.time      = getattr(nx,'time', "Unknown")
+            self.latitude  = nx['lat']
+            self.longitude = nx['lon']
+            self.speed     = nx['speed']
+            self.time      = nx['time']
 
             print(f"GPS  DEBUG: lat: {self.latitude} lon: {self.longitude} speed: {self.speed} time: {self.time}")
 
