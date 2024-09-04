@@ -192,11 +192,17 @@ class MainThread(threading.Thread):
             self.parent.db_write("BARO", pressure/100.0) # --- Altimiter setting ???
             time.sleep(self.sleep_time)
         #   self.parent.db_write("AOA", )  # AOA  - Angle of attack       ?
+        #   time.sleep(self.sleep_time)
         #   self.parent.db_write("GS", )   # GS   - Ground speed          has to come from GPS
-        #   self.parent.db_write("LAT", )  # LAT  - Latitude              has to come from GPS
-        #   self.parent.db_write("LONG", ) # LONG - Longitude             has to come from GPS
+        #   time.sleep(self.sleep_time)
+            self.parent.db_write("LAT", self.latitude)  # LAT  - Latitude              has to come from GPS
+            time.sleep(self.sleep_time)
+            self.parent.db_write("LONG", self.longitude) # LONG - Longitude             has to come from GPS
+            time.sleep(self.sleep_time)
         #   self.parent.db_write("VS", )   # VS   - Vertical speed speed  has to come from GPS
+        #   time.sleep(self.sleep_time)
         #   self.parent.db_write("IAS", )  # IAS  - Indicated airspeed    has to come from GPS
+        #   time.sleep(self.sleep_time)
 
             print("\n")
 

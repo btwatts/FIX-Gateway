@@ -53,35 +53,30 @@ class gps_mod:
     #
     # nx['class'] == 'TPV':
     #  <dictwrapper: {'class': 'TPV',     'device': '/dev/serial0', 'mode': 3, 'time': '2024-09-02T12:11:57.000Z', 'leapseconds': 18, 'ept': 0.005, 'lat': 8.1629034, 'lon': 125.1225247, 'altHAE': 734.707, 'altMSL': 676.89, 'alt': 676.89, 'epv': 13.01, 'track': 319.3477, 'magtrack': 318.1374, 'magvar': -1.2, 'speed': 0.164, 'eps': 0.87, 'ecefx': -3632998.6, 'ecefy': 5164917.41, 'ecefz': 899722.17, 'ecefvx': -0.08, 'ecefvy': -0.11, 'ecefvz': -0.07, 'ecefpAcc': 15.09, 'ecefvAcc': 0.89, 'geoidSep': 63.554, 'eph': 7.552, 'sep': 41.99}>
-    #
-    #  time   -- UTC
-    #  leapseconds
-    #  ept
-    #  lat
-    #  lon
-    #  altHAE
-    #  altMSL
-    #  alt
-    #  epv
-    #  track
-    #  magtrack
-    #  magvar
-    #  speed
-    #  eps
-    #  ecefx
-    #  ecefy
-    #  ecefz
-    #  ecefpAcc
-    #  ecefvAcc
-    #  geoidSep
-    #  eph
-    #  sep
 
           if nx['class'] == 'TPV':
-              latitude = getattr(nx,'lat', "Unknown")
-              longitude = getattr(nx,'lon', "Unknown")
-              speed = getattr(nx,'speed', "Unknown")
-              timestring = getattr(nx,'time', "Unknown")
+              lat         = getattr(nx,'lat', "Unknown")
+              lon         = getattr(nx,'lon', "Unknown")
+              speed       = getattr(nx,'speed', "Unknown")
+              leapseconds = getattr(nx,'leapseconds', "Unknown")
+              ept         = getattr(nx,'ept', "Unknown")
+              altHAE      = getattr(nx,'altHAE', "Unknown")
+              altMSL      = getattr(nx,'altMSL', "Unknown")
+              alt         = getattr(nx,'alt', "Unknown")
+              epv         = getattr(nx,'epv', "Unknown")
+              track       = getattr(nx,'track', "Unknown")
+              magtrack    = getattr(nx,'magtrack', "Unknown")
+              magvar      = getattr(nx,'magvar', "Unknown")
+              eps         = getattr(nx,'eps', "Unknown")
+              ecefx       = getattr(nx,'ecefx', "Unknown")
+              ecefy       = getattr(nx,'ecefy', "Unknown")
+              ecefz       = getattr(nx,'ecefz', "Unknown")
+              ecefpAcc    = getattr(nx,'ecefpAcc', "Unknown")
+              ecefvAcc    = getattr(nx,'ecefvAcc', "Unknown")
+              geoidSep    = getattr(nx,'geoidSep', "Unknown")
+              eph         = getattr(nx,'eph', "Unknown")
+              sep         = getattr(nx,'sep', "Unknown")
+              timestring  = getattr(nx,'time', "Unknown")
 
               utc_datetime = datetime.strptime(timestring, '%Y-%m-%dT%H:%M:%S.%fZ') # 2024-09-02T14:47:39.000Z
               from_zone = tz.gettz('UTC')
@@ -89,10 +84,11 @@ class gps_mod:
               utc_datetime = utc_datetime.replace(tzinfo=from_zone)
               time = utc_datetime.astimezone(to_zone)
               if output == True:
-                  print(f"Your position: lon: {longitude}  lat: {latitude}  speed: {speed}  time: {time}") # tz: {time.tzinfo}")
+                  print(f"Your position: lon: {lon}  lat: {lat}  speed: {speed}  time: {time}") # tz: {time.tzinfo}")
                  #print(f"timestring: {timestring}")
               break
-      ret = {'lon':longitude,'lat':latitude,'speed':speed,'time':time}
+     #ret = {'lon':lon,'lat':lat,'speed':speed,'time':time}
+      ret = {'lon':lon,'lat':lat,'speed':speed,'time':time,'leapseconds':leapseconds,'ept':ept,'altHAE':altHAE,'altMSL':altMSL,'alt':alt,'epv':epv,'track':track,'magtrack':magtrack,'magvar':magvar,'eps':eps,'ecefx':ecefx,'ecefy':ecefy,'ecefz':ecefz,'ecefpAcc':ecefpAcc,'ecefvAcc':ecefvAcc,'geoidSep':geoidSep,'eph':eph,'sep':sep}
       return ret
 
 if __name__ == '__main__':
