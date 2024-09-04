@@ -103,3 +103,6 @@ if __name__ == '__main__':
       except (KeyboardInterrupt):
           self.running = False
           print("Applications closed!")
+
+  gps = gps_mod()
+  gps.runTest()
