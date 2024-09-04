@@ -27,6 +27,9 @@ class gps_mod:
       ret = {'lon':longitude,'lat':latitude}
       return ret
 
+  def get_timezone(self, lon, lat):
+      return get_tz(lon, lat)
+
   def getPositionData(self, tzone='America/Chicago'):
       nx = self.gpsd.next()
 

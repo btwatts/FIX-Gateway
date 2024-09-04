@@ -34,6 +34,7 @@ import fixgw.plugin as plugin
 
 from fixgw.plugins.ulp.bmp388 import BMP388
 from fixgw.plugins.ulp.IMU.berryIMU import BERRYIMU
+from fixgw.plugins.ulp.gpsd import gps_mod
 
 def handle_ctrl_c(signal, frame):
     print(" ")
@@ -49,7 +50,7 @@ class MainThread(threading.Thread):
            This gives the thread all the plugin goodies that the
            parent has."""
         super(MainThread, self).__init__()
-        print("running ulp plugin")
+        print("loading ulp plugin")
         self.getout = False     # indicator for when to stop
         self.parent = parent    # parent plugin object
         self.log = parent.log   # simplifies logging
@@ -67,19 +68,33 @@ class MainThread(threading.Thread):
         self.imu = BERRYIMU()
 
     def run(self):
+        print("initializing ulp plugin")
 
+        print("...gps...")
+        self.gps   = gps_mod()
+        latlon     = self.gps.getLatLon()
+        self.lon   = latlon['lon']
+        self.lat   = latlon['lat']
+        print(f"Longitude: {self.lon}  Latitude: {self.lat}")
+        self.tzone = self.gps.get_timezone(self.lon, self.lat)
+        print(f"Local timezone: {self.tzone}")
+
+        print("...bmp...")
        #self.bmp.initialize()
         if self.bmp.initialize() == None:
             from fixgw.plugins.ulp.bmp280 import BMP280
             self.bmp = BMP280()
             #self.bmp.initialize()
 
+        print("...imu...")
         self.imu.initialize()
 
         a = datetime.now()
         self.log.debug("ulp plugin started")
 
-        print("ulp plugin Test ... ")
+        time.sleep(5) # BUGBUG this is for initial testin
+
+        print("... ulp plugin Test ... ")
         if 1:                       #Change to '0' to stop showing the current path
             print("  path  " + os.path.dirname(__file__))
 
