@@ -110,7 +110,7 @@ class MainThread(threading.Thread):
             self.count += 1
 
             ##GPS##
-            nx = self.gps.getPosition(self.tzone)
+            nx = self.gps.getPositionData(self.tzone)
             self.latitude  = getattr(nx,'lat', "Unknown")
             self.longitude = getattr(nx,'lon', "Unknown")
             self.speed     = getattr(nx,'speed', "Unknown")
