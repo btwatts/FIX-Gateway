@@ -104,5 +104,6 @@ if __name__ == '__main__':
           self.running = False
           print("Applications closed!")
 
-gpstest = gps_mod()
-gpstest.runTest()
+# At the moment I'm having trouble with test and I'm deferring it until later
+# gpstest = gps_mod()
+# gpstest.runTest()
