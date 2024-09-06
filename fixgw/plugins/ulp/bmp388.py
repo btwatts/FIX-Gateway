@@ -88,6 +88,7 @@ class BMP388(object):
                          | BMP388_REG_VAL_TEMP_EN
                          | BMP388_REG_VAL_NORMAL_MODE)
         self._load_calibration()
+        return "BMP388"
 
     def _read_byte(self, cmd):
         return self._bus.read_byte_data(self._address, cmd)
@@ -205,15 +206,16 @@ class BMP388(object):
 
 if __name__ == '__main__':
 
- import time
- 
- print("BMP388 Test Program ...\n")
- 
- bmp388 = BMP388()
- 
- bmp388.initialize()
+  import time
 
- while True:
-  time.sleep(0.5)
-  temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
-  print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+  print("BMP388 Test Program ...\n")
+
+  bmp388 = BMP388()
+
+  bmp = bmp388.initialize()
+  if bmp != None:
+
+    while True:
+      time.sleep(0.5)
+      temperature,pressure,altitude = bmp388.get_temperature_and_pressure_and_altitude()
+      print(' Temperature = %.1f Pressure = %.2f  Altitude =%.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
