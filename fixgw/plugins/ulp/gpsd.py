@@ -26,7 +26,7 @@ class gps_mod:
       return ret
 
   def get_timezone(self, lon, lat):
-      return get_tz(lon, lat)
+      return get_tz(float(lon), float(lat))
 
   def getPositionData(self, tzone='America/Chicago', output=False):
       counter = 10 # limit the attempts in case the GPS has not yet fixed
