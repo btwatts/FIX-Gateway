@@ -109,7 +109,7 @@ if __name__ == '__main__':
     tzone = gpsd.get_timezone(value['lon'], value['lat'])
     print(f"Local timezone: {tzone}")
     while running:
-      gpsd.getPositionData(tzone)
+      gpsd.getPositionData(tzone, True)
       time.sleep(1.0)
   except (KeyboardInterrupt):
     running = False
