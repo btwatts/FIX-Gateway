@@ -80,7 +80,7 @@ class BMP388(object):
                                  BMP388_REG_VAL_SOFT_RESET)
                 time.sleep(0.01)
         else:
-            print ("Pressure sensor is not BMP380!\r\n")
+            print ("Pressure sensor is not BMP388!\r\n")
             return None
 
         self._write_byte(BMP388_REG_ADD_PWR_CTRL,
