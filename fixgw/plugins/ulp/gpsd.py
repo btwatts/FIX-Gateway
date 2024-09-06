@@ -93,25 +93,19 @@ class gps_mod:
 
 if __name__ == '__main__':
 
-  def runTest(self):
+  import time
 
-      import time
+  gpsd = gps_mod()
+  running = True
 
-      self.running = True
-
-      try:
-          print("Application started!")
-          value = self.getLatLon()
-          tzone = get_tz(value['lon'], value['lat'])
-          print(f"Local timezone: {tzone}")
-          while self.running:
-              self.getPositionData(tzone)
-              time.sleep(1.0)
-
-      except (KeyboardInterrupt):
-          self.running = False
-          print("Applications closed!")
-
-# At the moment I'm having trouble with test and I'm deferring it until later
-# gpstest = gps_mod()
-# gpstest.runTest()
+  try:
+    print("Application started!")
+    value = gpsd.getLatLon()
+    tzone = get_tz(value['lon'], value['lat'])
+    print(f"Local timezone: {tzone}")
+    while running:
+      gpsd.getPositionData(tzone)
+      time.sleep(1.0)
+  except (KeyboardInterrupt):
+    running = False
+    print("Applications closed!")

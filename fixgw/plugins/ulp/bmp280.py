@@ -45,30 +45,30 @@ class BMP280:
 
 if __name__ == '__main__':
 
- import time
+  import time
  
- print("BMP280 Test Program ...\n")
+  print("BMP280 Test Program ...\n")
  
- bmp280 = BMP280()
- seaLevelhPa=1013.25
+  bmp280 = BMP280()
+  seaLevelhPa=1013.25
 
- for x in range(0,2): #while True:
-  time.sleep(0.5)
-
-  temperature = bmp280.get_temperature()
-  print(f"temp C: {temperature}")
-  print(f"temp F: {9/5*temperature + 32}")
-  pressure = bmp280.get_pressure()
-  print(f"press: {pressure}")
-
-  newAlt = 44330*(1.0 - pow(pressure / seaLevelhPa, 0.1902949571836346)) #* 100 # Note:  0.1902949571836346 is: 1/5.255
-  print(f"new alt: {newAlt}")
-  print(f"check alt: {bmp280.get_altitude()}")
-
-  print(f"altitude in feet: {bmp280.get_altitude_in_feet()}")
-
-  print("-----")
-  for x in range(0,2): # while True:
+  for x in range(0,2): #while True:
     time.sleep(0.5)
-    temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
-    print(' Temperature = %.1f Pressure = %.2f  Altitude = %.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
+
+    temperature = bmp280.get_temperature()
+    print(f"temp C: {temperature}")
+    print(f"temp F: {9/5*temperature + 32}")
+    pressure = bmp280.get_pressure()
+    print(f"press: {pressure}")
+
+    newAlt = 44330*(1.0 - pow(pressure / seaLevelhPa, 0.1902949571836346)) #* 100 # Note:  0.1902949571836346 is: 1/5.255
+    print(f"new alt: {newAlt}")
+    print(f"check alt: {bmp280.get_altitude()}")
+
+    print(f"altitude in feet: {bmp280.get_altitude_in_feet()}")
+
+    print("-----")
+    for x in range(0,2): # while True:
+      time.sleep(0.5)
+      temperature,pressure,altitude = bmp280.get_temperature_and_pressure_and_altitude()
+      print(' Temperature = %.1f Pressure = %.2f  Altitude = %.2f '%(temperature/100.0,pressure/100.0,altitude/100.0))
