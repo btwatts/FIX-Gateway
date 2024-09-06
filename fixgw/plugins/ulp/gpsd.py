@@ -101,7 +101,7 @@ if __name__ == '__main__':
   try:
     print("Application started!")
     value = gpsd.getLatLon()
-    tzone = get_tz(value['lon'], value['lat'])
+    tzone = gpsd.get_timezone(value['lon'], value['lat'])
     print(f"Local timezone: {tzone}")
     while running:
       gpsd.getPositionData(tzone)
