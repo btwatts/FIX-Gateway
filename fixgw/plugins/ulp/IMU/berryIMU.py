@@ -44,10 +44,10 @@ class BERRYIMU(object):
 # MY Version 4 (v4) returned the following values....
         self.magXmin =  -562
         self.magYmin =  -1002
-        self.magZmin =  1811
-        self.magXmax =  3096
-        self.magYmax =  3261
-        self.magZmax =  6458
+        self.magZmin =   1811
+        self.magXmax =   3096
+        self.magYmax =   3261
+        self.magZmax =   6458
 # MY Version 3 (v3) returned the following values....
         self.magXmin =  -1439  #  341
         self.magYmin =  -5064  # -3297
