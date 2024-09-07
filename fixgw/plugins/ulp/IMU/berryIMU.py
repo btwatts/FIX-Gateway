@@ -49,12 +49,12 @@ class BERRYIMU(object):
         self.magYmax =  3261
         self.magZmax =  6458
 # MY Version 3 (v3) returned the following values....
-        self.magXmin =  341
-        self.magYmin =  -3297
-        self.magZmin =  2569
-        self.magXmax =  2326
-        self.magYmax =  -1030
-        self.magZmax =  4584
+        self.magXmin =  -1439  #  341
+        self.magYmin =  -5064  # -3297
+        self.magZmin =   2383  #  2569
+        self.magXmax =   2772  #  2326
+        self.magYmax =  -654   # -1030
+        self.magZmax =   5892  #  4584
 # NOTE BUGBUG Since I am currently using the v3...I'm using this without checking which is installed.
 # Perhaps I should be including calibration in the base code so I can self-configure it....
 

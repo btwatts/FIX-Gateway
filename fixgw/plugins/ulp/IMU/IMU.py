@@ -1,12 +1,18 @@
 import smbus
-bus = smbus.SMBus(1)
-from fixgw.plugins.ulp.IMU.LSM9DS0 import *
-from fixgw.plugins.ulp.IMU.LSM9DS1 import *
-from fixgw.plugins.ulp.IMU.LSM6DSL import *
-from fixgw.plugins.ulp.IMU.LIS3MDL import *
 import time
 
+try:
+    from fixgw.plugins.ulp.IMU.LSM9DS0 import *
+    from fixgw.plugins.ulp.IMU.LSM9DS1 import *
+    from fixgw.plugins.ulp.IMU.LSM6DSL import *
+    from fixgw.plugins.ulp.IMU.LIS3MDL import *
+except:
+    from LSM9DS0 import *
+    from LSM9DS1 import *
+    from LSM6DSL import *
+    from LIS3MDL import *
 
+bus = smbus.SMBus(1)
 
 class IMU(object):
 

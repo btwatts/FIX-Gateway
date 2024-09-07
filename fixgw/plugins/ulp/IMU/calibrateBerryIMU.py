@@ -17,12 +17,14 @@
 #   http://ozzmaker.com/
 
 
-import sys,signal,os
+import sys,signal
 import time
-import math
-from fixgw.plugins.ulp.IMU.IMU import IMU
 import datetime
 
+try:
+    from fixgw.plugins.ulp.IMU.IMU import IMU
+except:
+    from IMU import IMU
 
 def handle_ctrl_c(signal, frame):
     print(" ")
