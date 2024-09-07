@@ -22,9 +22,9 @@ import time
 import datetime
 
 try:
-    from fixgw.plugins.ulp.IMU.IMU import IMU
+    from fixgw.plugins.ulp.IMU.IMU import IMU as IMU_Device
 except:
-    from IMU import IMU
+    from IMU import IMU as IMU_Device
 
 def handle_ctrl_c(signal, frame):
     print(" ")
@@ -36,7 +36,7 @@ def handle_ctrl_c(signal, frame):
     print("magZmax = %i"%  (magZmax))
     sys.exit(130) # 130 is standard exit code for ctrl-c
 
-
+IMU_Device = IMU()
 
 IMU.detectIMU()
 IMU.initIMU()
