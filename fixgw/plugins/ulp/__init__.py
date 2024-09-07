@@ -195,10 +195,18 @@ class MainThread(threading.Thread):
         #   time.sleep(self.sleep_time)
         #   self.parent.db_write("GS", )   # GS   - Ground speed          has to come from GPS
         #   time.sleep(self.sleep_time)
-            self.parent.db_write("LAT", self.latitude)  # LAT  - Latitude              has to come from GPS
-            time.sleep(self.sleep_time)
-            self.parent.db_write("LONG", self.longitude) # LONG - Longitude             has to come from GPS
-            time.sleep(self.sleep_time)
+            try:
+                val = float(self.latitude)
+                self.parent.db_write("LAT", self.latitude)  # LAT  - Latitude              has to come from GPS
+                time.sleep(self.sleep_time)
+            except:
+                pass
+            try:
+                val = float(self.longitude)
+                self.parent.db_write("LONG", self.longitude) # LONG - Longitude             has to come from GPS
+                time.sleep(self.sleep_time)
+            except:
+                pass
         #   self.parent.db_write("VS", )   # VS   - Vertical speed speed  has to come from GPS
         #   time.sleep(self.sleep_time)
         #   self.parent.db_write("IAS", )  # IAS  - Indicated airspeed    has to come from GPS
