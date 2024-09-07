@@ -36,7 +36,7 @@ def handle_ctrl_c(signal, frame):
     print("magZmax = %i"%  (magZmax))
     sys.exit(130) # 130 is standard exit code for ctrl-c
 
-IMU_Device = IMU()
+IMU = IMU_Device()
 
 IMU.detectIMU()
 IMU.initIMU()
