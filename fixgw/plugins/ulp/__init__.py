@@ -43,9 +43,18 @@ from pynmeagps import (    # gps conversions not yet used but testing
 
 import fixgw.plugin as plugin
 
-from fixgw.plugins.ulp.bmp388 import BMP388
-from fixgw.plugins.ulp.IMU.berryIMU import BERRYIMU
-from fixgw.plugins.ulp.gpsd import gps_mod
+try:
+    from fixgw.plugins.ulp.bmp388 import BMP388
+except:
+    from bmp388 import BMP388
+try:
+    from fixgw.plugins.ulp.IMU.berryIMU import BERRYIMU
+except:
+    from IMB.berryIMU import BERRYIMU
+try:
+    from fixgw.plugins.ulp.gpsd import gps_mod
+except:
+    from gpsd import gps_mod
 
 def handle_ctrl_c(signal, frame):
     print(" ")
