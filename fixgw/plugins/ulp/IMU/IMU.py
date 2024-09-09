@@ -3,14 +3,20 @@ import time
 
 try:
     from fixgw.plugins.ulp.IMU.LSM9DS0 import *
+except:
+    from IMU.LSM9DS0 import *
+try:
     from fixgw.plugins.ulp.IMU.LSM9DS1 import *
+except:
+    from IMU.LSM9DS1 import *
+try:
     from fixgw.plugins.ulp.IMU.LSM6DSL import *
+except:
+    from IMU.LSM6DSL import *
+try:
     from fixgw.plugins.ulp.IMU.LIS3MDL import *
 except:
-    from LSM9DS0 import *
-    from LSM9DS1 import *
-    from LSM6DSL import *
-    from LIS3MDL import *
+    from IMU.LIS3MDL import *
 
 bus = smbus.SMBus(1)
 
@@ -33,7 +39,7 @@ class IMU(object):
             LSM9DS0_WHO_G_response = (bus.read_byte_data(LSM9DS0_GYR_ADDRESS, LSM9DS0_WHO_AM_I_G))
             LSM9DS0_WHO_XM_response = (bus.read_byte_data(LSM9DS0_ACC_ADDRESS, LSM9DS0_WHO_AM_I_XM))
         except IOError as e:
-            print('')        #need to do something here, so we just print a space
+            pass
         else:
             if (LSM9DS0_WHO_G_response == 0xd4) and (LSM9DS0_WHO_XM_response == 0x49):
                 print("Found BerryIMUv1 (LSM9DS0)")
@@ -47,7 +53,7 @@ class IMU(object):
             LSM9DS1_WHO_XG_response = (bus.read_byte_data(LSM9DS1_GYR_ADDRESS, LSM9DS1_WHO_AM_I_XG))
             LSM9DS1_WHO_M_response = (bus.read_byte_data(LSM9DS1_MAG_ADDRESS, LSM9DS1_WHO_AM_I_M))
         except IOError as f:
-            print('')        #need to do something here, so we just print a space
+            pass
         else:
             if (LSM9DS1_WHO_XG_response == 0x68) and (LSM9DS1_WHO_M_response == 0x3d):
                 print("Found BerryIMUv2 (LSM9DS1)")
@@ -61,7 +67,7 @@ class IMU(object):
             LIS3MDL_WHO_AM_I_response = (bus.read_byte_data(LIS3MDL_ADDRESS, LIS3MDL_WHO_AM_I))
 
         except IOError as f:
-            print('')        #need to do something here, so we just print a space
+            pass
         else:
             if (LSM6DSL_WHO_AM_I_response == 0x6A) and (LIS3MDL_WHO_AM_I_response == 0x3D):
                 print("Found BerryIMUv3 (LSM6DSL and LIS3MDL)")
