@@ -50,7 +50,7 @@ except:
 try:
     from fixgw.plugins.ulp.IMU.berryIMU import BERRYIMU
 except:
-    from IMB.berryIMU import BERRYIMU
+    from IMU.berryIMU import BERRYIMU
 try:
     from fixgw.plugins.ulp.gpsd import gps_mod
 except:
