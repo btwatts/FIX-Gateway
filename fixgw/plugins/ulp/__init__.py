@@ -135,47 +135,28 @@ class MainThread(threading.Thread):
             LP = b.microseconds/(1000000*1.0)
             outputString = "  Loop Time %5.2f " % ( LP )
         
-            imuValues = self.imu.readCalibrated(LP)
+            imuValues    = self.imu.readCalibrated(LP)
         
-            MAGx       = imuValues['MAGx']
-            MAGy       = imuValues['MAGy']
-            MAGz       = imuValues['MAGz']
-            pitch      = imuValues['pitch']
-            roll       = imuValues['roll']
-            AccXangle  = imuValues['AccXangle']
-            AccYangle  = imuValues['AccYangle']
-            gyroXangle = imuValues['gyroXangle']
-            gyroYangle = imuValues['gyroYangle']
-            gyroZangle = imuValues['gyroZangle']
-            CFangleX   = imuValues['CFangleX']
-            CFangleY   = imuValues['CFangleY']
-            heading    = imuValues['heading']
-            kalmanX    = imuValues['kalmanX']
-            kalmanY    = imuValues['kalmanY']
+            MAGx         = imuValues['MAGx']
+            MAGy         = imuValues['MAGy']
+            MAGz         = imuValues['MAGz']
+            pitch        = imuValues['pitch']
+            roll         = imuValues['roll']
+            AccXangle    = imuValues['AccXangle']
+            AccYangle    = imuValues['AccYangle']
+            gyroXangle   = imuValues['gyroXangle']
+            gyroYangle   = imuValues['gyroYangle']
+            gyroZangle   = imuValues['gyroZangle']
+            CFangleX     = imuValues['CFangleX']
+            CFangleY     = imuValues['CFangleY']
+            heading      = imuValues['heading']
+            kalmanX      = imuValues['kalmanX']
+            kalmanY      = imuValues['kalmanY']
 
-            #Calculate the new tilt compensated values
-            #The compass and accelerometer are orientated differently on the the BerryIMUv1, v2 and v3.
-            #This needs to be taken into consideration when performing the calculations
-        
-            #X compensation
-            if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
-                magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
-            else:                                                              #LSM9DS1
-                magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
-        
-            #Y compensation
-            if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
-                magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
-            else:                                                              #LSM9DS1
-                magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
-        
-            #Calculate tilt compensated heading
-            tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/math.pi
-        
-            if tiltCompensatedHeading < 0:
-                tiltCompensatedHeading += 360
-        
-            ##################### END Tilt Compensation ########################
+            magXcomp     = imuValues['magXcomp']
+            magYcomp     = imuValues['magYcomp']
+            tiltHeading  = imuValues['tiltHeading']
+
 
             self.parent.db_write("PITCH", pitch)
             time.sleep(self.sleep_time)
@@ -259,7 +240,7 @@ class MainThread(threading.Thread):
         
             if 1:                       #Change to '0' to stop  showing the heading
                 outputString  = "\n"
-                outputString +="\t# HEADING %5.2f   tiltCompHeading %5.2f" % (heading,tiltCompensatedHeading)
+                outputString +="\t# HEADING %5.2f   tilt Compensated Heading %5.2f" % (heading,tiltHeading)
                 print(outputString)
         
             if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
