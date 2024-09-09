@@ -337,6 +337,33 @@ class BERRYIMU(object):
         pitch = math.asin(accXnorm)
         roll = -math.asin(accYnorm/math.cos(pitch))
 
+
+    #Calculate the new tilt compensated values
+    #The compass and accelerometer are orientated differently on the the BerryIMUv1, v2 and v3.
+    #This needs to be taken into consideration when performing the calculations
+
+    #X compensation
+        if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+            magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
+        else:                                                                      #LSM9DS1
+            magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
+
+    #Y compensation
+        if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+            magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
+        else:                                                                      #LSM9DS1
+            magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
+
+
+    #Calculate tilt compensated heading
+        tiltHeading = 180 * math.atan2(magYcomp,magXcomp)/M_PI
+
+        if tiltHeading < 0:
+            tiltHeading += 360
+
+    ##################### END Tilt Compensation ########################
+
+
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz,
                 'rate_gyr_x':rate_gyr_x, 'rate_gyr_y':rate_gyr_y, 'rate_gyr_z':rate_gyr_z,
                 'gyroXangle':self.gyroXangle, 'gyroYangle':self.gyroYangle, 'gyroZangle':self.gyroZangle,
@@ -344,8 +371,7 @@ class BERRYIMU(object):
                 'kalmanX':kalmanX, 'kalmanY':kalmanY,
                 'heading':heading,
                 'accXnorm':accXnorm, 'accYnorm':accYnorm,
-                'pitch':pitch, 'roll':roll}
-
+                'pitch':pitch, 'roll':roll, 'magXcomp': magXcomp, 'magYcomp':magYcomp, 'tiltHeading':tiltHeading}
 
 
 if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
@@ -367,52 +393,27 @@ if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
           LP = b.microseconds/(1000000*1.0)
           outputString = "Loop Time %5.2f " % ( LP )
 
-          imuValues = berryIMU.readCalibrated(LP)
+          imuValues    = berryIMU.readCalibrated(LP)
 
-          MAGx       = imuValues['MAGx']
-          MAGy       = imuValues['MAGy']
-          MAGz       = imuValues['MAGz']
-          pitch      = imuValues['pitch']
-          roll       = imuValues['roll']
-          AccXangle  = imuValues['AccXangle']
-          AccYangle  = imuValues['AccYangle']
-          gyroXangle = imuValues['gyroXangle']
-          gyroYangle = imuValues['gyroYangle']
-          gyroZangle = imuValues['gyroZangle']
-          CFangleX   = imuValues['CFangleX']
-          CFangleY   = imuValues['CFangleY']
-          heading    = imuValues['heading']
-          kalmanX    = imuValues['kalmanX']
-          kalmanY    = imuValues['kalmanY']
+          MAGx         = imuValues['MAGx']
+          MAGy         = imuValues['MAGy']
+          MAGz         = imuValues['MAGz']
+          pitch        = imuValues['pitch']
+          roll         = imuValues['roll']
+          AccXangle    = imuValues['AccXangle']
+          AccYangle    = imuValues['AccYangle']
+          gyroXangle   = imuValues['gyroXangle']
+          gyroYangle   = imuValues['gyroYangle']
+          gyroZangle   = imuValues['gyroZangle']
+          CFangleX     = imuValues['CFangleX']
+          CFangleY     = imuValues['CFangleY']
+          heading      = imuValues['heading']
+          kalmanX      = imuValues['kalmanX']
+          kalmanY      = imuValues['kalmanY']
 
-          #Calculate the new tilt compensated values
-          #The compass and accelerometer are orientated differently on the the BerryIMUv1, v2 and v3.
-          #This needs to be taken into consideration when performing the calculations
-
-          #X compensation
-          if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):              #LSM9DS0 and (LSM6DSL & LIS2MDL)
-              magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
-          else:                                                                #LSM9DS1
-              magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
-
-          #Y compensation
-          if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
-              magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
-          else:                                                                #LSM9DS1
-              magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
-
-
-
-
-
-          #Calculate tilt compensated heading
-          tiltCompensatedHeading = 180 * math.atan2(magYcomp,magXcomp)/M_PI
-
-          if tiltCompensatedHeading < 0:
-              tiltCompensatedHeading += 360
-
-
-          ##################### END Tilt Compensation ########################
+          magXcomp     = imuValues['magXcomp']
+          magYcomp     = imuValues['magYcomp']
+          tiltHeading  = imuValues['tiltHeading']
 
           print("\n")
           print("\n")
