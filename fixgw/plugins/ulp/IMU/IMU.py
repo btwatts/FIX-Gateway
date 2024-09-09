@@ -4,19 +4,31 @@ import time
 try:
     from fixgw.plugins.ulp.IMU.LSM9DS0 import *
 except:
-    from IMU.LSM9DS0 import *
+    try:
+        from IMU.LSM9DS0 import *
+    except:
+        from LSM9DS0 import *
 try:
     from fixgw.plugins.ulp.IMU.LSM9DS1 import *
 except:
-    from IMU.LSM9DS1 import *
+    try:
+        from IMU.LSM9DS1 import *
+    except:
+        from LSM9DS1 import *
 try:
     from fixgw.plugins.ulp.IMU.LSM6DSL import *
 except:
-    from IMU.LSM6DSL import *
+    try:
+        from IMU.LSM6DSL import *
+    except:
+        from LSM6DSL import *
 try:
     from fixgw.plugins.ulp.IMU.LIS3MDL import *
 except:
-    from IMU.LIS3MDL import *
+    try:
+        from IMU.LIS3MDL import *
+    except:
+        from LIS3MDL import *
 
 bus = smbus.SMBus(1)
 
