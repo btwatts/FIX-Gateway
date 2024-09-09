@@ -436,7 +436,7 @@ if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
 
           if 1:                       #Change to '0' to stop  showing the heading
               outputString = "\n"
-              outputString +="\t# HEADING %5.2f  tiltCompensatedHeading %5.2f #" % (heading,tiltCompensatedHeading)
+              outputString +="\t# HEADING %5.2f  tilt compensated Heading %5.2f #" % (heading,tiltHeading)
               print(outputString)
 
           if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
