@@ -117,7 +117,7 @@ class MainThread(threading.Thread):
         a = datetime.now()
         self.log.debug("ulp plugin started")
 
-        time.sleep(5) # BUGBUG this is for initial testin
+        time.sleep(5) # BUGBUG this is for initial testing
 
         print("... ulp plugin Test ... ")
         if 1:                       #Change to '0' to stop showing the current path
