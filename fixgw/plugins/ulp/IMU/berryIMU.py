@@ -19,8 +19,12 @@
 
 import sys
 import math
-from fixgw.plugins.ulp.IMU.IMU import IMU
 import os
+
+try:
+    from fixgw.plugins.ulp.IMU.IMU import IMU as IMU_Device
+except:
+    from IMU import IMU as IMU_Device
 
 
 RAD_TO_DEG = 57.29578
@@ -35,7 +39,7 @@ MAG_MEDIANTABLESIZE = 9         # Median filter table size for magnetometer. Hig
 class BERRYIMU(object):
 
     def __init__(self):
-        self.imu = IMU()
+        self.imu = IMU_Device()
 ################# Compass Calibration values ############
 # Use calibrateBerryIMU.py to get calibration values
 # Calibrating the compass isnt mandatory, however a calibrated

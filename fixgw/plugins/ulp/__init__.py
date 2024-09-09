@@ -28,8 +28,19 @@ import math
 from datetime import datetime
 import os
 import threading
-
 from collections import OrderedDict
+
+from pynmeagps import (    # gps conversions not yet used but testing
+    bearing,
+    ecef2llh,
+    haversine,
+    latlon2dmm,
+    latlon2dms,
+    llh2ecef,
+    llh2iso6709,
+    planar,
+)
+
 import fixgw.plugin as plugin
 
 from fixgw.plugins.ulp.bmp388 import BMP388
