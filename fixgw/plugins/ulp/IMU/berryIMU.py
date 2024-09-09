@@ -390,13 +390,13 @@ if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
           #This needs to be taken into consideration when performing the calculations
 
           #X compensation
-          if(self.imu.version() == 1 or self.imu.version() == 3):              #LSM9DS0 and (LSM6DSL & LIS2MDL)
+          if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):              #LSM9DS0 and (LSM6DSL & LIS2MDL)
               magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
           else:                                                                #LSM9DS1
               magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
 
           #Y compensation
-          if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+          if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
               magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
           else:                                                                #LSM9DS1
               magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
