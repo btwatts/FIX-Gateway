@@ -348,7 +348,7 @@ class BERRYIMU(object):
 
 
 
-#if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
+if __name__ == '__main__':   ## BUGBUG DEBUG this is extra output
 
     #def runTest(self):
         import time
