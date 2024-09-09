@@ -104,7 +104,10 @@ class MainThread(threading.Thread):
         print("...bmp...")
        #self.bmp.initialize()
         if self.bmp.initialize() == None:
-            from fixgw.plugins.ulp.bmp280 import BMP280
+            try:
+                from fixgw.plugins.ulp.bmp280 import BMP280
+            except:
+                from bmp280 import BMP280
             self.bmp = BMP280()
             #self.bmp.initialize()
 
