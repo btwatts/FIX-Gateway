@@ -198,7 +198,7 @@ class BERRYIMU(object):
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz}
 
     def readCalibrated(self, LP):
-        imuDict = BERRYIMU.readIMU(self)
+        imuDict = self.imu.readIMU(self)
         ACCx = imuDict['ACCx']
         ACCy = imuDict['ACCy']
         ACCz = imuDict['ACCz']
@@ -323,8 +323,8 @@ class BERRYIMU(object):
         self.CFangleY=AA*(self.CFangleY+rate_gyr_y*LP) +(1 - AA) * AccYangle
 
     #Kalman filter used to combine the accelerometer and gyro values.
-        kalmanY = BERRYIMU.kalmanFilterY(self, AccYangle, rate_gyr_y, LP)
-        kalmanX = BERRYIMU.kalmanFilterX(self, AccXangle, rate_gyr_x, LP)
+        kalmanY = self.imu.kalmanFilterY(self, AccYangle, rate_gyr_y, LP)
+        kalmanX = self.imu.kalmanFilterX(self, AccXangle, rate_gyr_x, LP)
 
     #Calculate heading
         heading = 180 * math.atan2(MAGy,MAGx)/M_PI
@@ -351,13 +351,13 @@ class BERRYIMU(object):
     #This needs to be taken into consideration when performing the calculations
 
     #X compensation
-        if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+        if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
             magXcomp = MAGx*math.cos(pitch)+MAGz*math.sin(pitch)
         else:                                                                      #LSM9DS1
             magXcomp = MAGx*math.cos(pitch)-MAGz*math.sin(pitch)
 
     #Y compensation
-        if(berryIMU.imu.version() == 1 or berryIMU.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
+        if(self.imu.version() == 1 or self.imu.version() == 3):            #LSM9DS0 and (LSM6DSL & LIS2MDL)
             magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)-MAGz*math.sin(roll)*math.cos(pitch)
         else:                                                                      #LSM9DS1
             magYcomp = MAGx*math.sin(roll)*math.sin(pitch)+MAGy*math.cos(roll)+MAGz*math.sin(roll)*math.cos(pitch)
