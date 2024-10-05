@@ -198,7 +198,7 @@ class BERRYIMU(object):
         return {'ACCx':ACCx, 'ACCy':ACCy, 'ACCz':ACCz, 'GYRx':GYRx, 'GYRy':GYRy, 'GYRz':GYRz, 'MAGx':MAGx, 'MAGy':MAGy, 'MAGz':MAGz}
 
     def readCalibrated(self, LP):
-        imuDict = self.imu.readIMU(self)
+        imuDict = self.readIMU(self)
         ACCx = imuDict['ACCx']
         ACCy = imuDict['ACCy']
         ACCz = imuDict['ACCz']
