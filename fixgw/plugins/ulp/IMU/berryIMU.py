@@ -323,8 +323,8 @@ class BERRYIMU(object):
         self.CFangleY=AA*(self.CFangleY+rate_gyr_y*LP) +(1 - AA) * AccYangle
 
     #Kalman filter used to combine the accelerometer and gyro values.
-        kalmanY = self.imu.kalmanFilterY(self, AccYangle, rate_gyr_y, LP)
-        kalmanX = self.imu.kalmanFilterX(self, AccXangle, rate_gyr_x, LP)
+        kalmanY = self.kalmanFilterY(self, AccYangle, rate_gyr_y, LP)
+        kalmanX = self.kalmanFilterX(self, AccXangle, rate_gyr_x, LP)
 
     #Calculate heading
         heading = 180 * math.atan2(MAGy,MAGx)/M_PI
