@@ -134,11 +134,14 @@ class gps_mod:
               sep         = getattr(nx,'sep',         "Unknown")
               timestring  = getattr(nx,'time',        "Unknown")
 
-              utc_datetime = datetime.strptime(timestring, '%Y-%m-%dT%H:%M:%S.%fZ') # 2024-09-02T14:47:39.000Z
-              from_zone = tz.gettz('UTC')
-              to_zone = tz.gettz(tzone)
-              utc_datetime = utc_datetime.replace(tzinfo=from_zone)
-              time = utc_datetime.astimezone(to_zone)
+              if timestring != "Unknown":
+                  utc_datetime = datetime.strptime(timestring, '%Y-%m-%dT%H:%M:%S.%fZ') # 2024-09-02T14:47:39.000Z
+                  from_zone = tz.gettz('UTC')
+                  to_zone = tz.gettz(tzone)
+                  utc_datetime = utc_datetime.replace(tzinfo=from_zone)
+                  time = utc_datetime.astimezone(to_zone)
+              else:
+                  time = "Unknown"
               if output == True:
                   print(f"Your position: lon: {lon}  lat: {lat}  speed: {speed}  time: {time}") # tz: {time.tzinfo}")
                  #print(f"timestring: {timestring}")
